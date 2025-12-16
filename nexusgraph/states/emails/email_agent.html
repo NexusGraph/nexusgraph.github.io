@@ -87,7 +87,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -117,12 +117,17 @@
     </div>
     <a class="headerlink" href="#EmailClassification"></a>
     
-            <div class="docstring"><p>A MutableMapping is a generic container for associating
-key/value pairs.</p>
+            <div class="docstring"><p>Base class for state management with key aliasing and nested key support.</p>
 
-<p>This class provides concrete generic implementations of all
-methods except for __getitem__, __setitem__, __delitem__,
-__iter__, and __len__.</p>
+<p>This class extends UserDict to provide state management capabilities
+with support for key aliasing, nested access, and validation. It allows
+mapping external keys to internal state attributes through a dictionary
+mapping and provides methods for state manipulation. Extend dict is only
+for isinstance(self, dict) be True</p>
+
+<p>this class support get value by keys: self["key1"]["key2"]["key3"] --> self["key1.key2.key3"]</p>
+
+<p>self.all_keys() can recursively return keys()</p>
 </div>
 
 
@@ -177,10 +182,10 @@ __iter__, and __len__.</p>
                                 <dd id="EmailClassification.__init__" class="function"><a href="../../bases/graph/state_base.html#StateBase.__init__">StateBase</a></dd>
                 <dd id="EmailClassification.set_allow_key_lost" class="function"><a href="../../bases/graph/state_base.html#StateBase.set_allow_key_lost">set_allow_key_lost</a></dd>
                 <dd id="EmailClassification.dictionary" class="variable"><a href="../../bases/graph/state_base.html#StateBase.dictionary">dictionary</a></dd>
-                <dd id="EmailClassification.all_keys" class="function"><a href="../../bases/graph/state_base.html#StateBase.all_keys">all_keys</a></dd>
                 <dd id="EmailClassification.stash_dictionary" class="function"><a href="../../bases/graph/state_base.html#StateBase.stash_dictionary">stash_dictionary</a></dd>
                 <dd id="EmailClassification.stash_pop_dictionary" class="function"><a href="../../bases/graph/state_base.html#StateBase.stash_pop_dictionary">stash_pop_dictionary</a></dd>
                 <dd id="EmailClassification.set_dictionary" class="function"><a href="../../bases/graph/state_base.html#StateBase.set_dictionary">set_dictionary</a></dd>
+                <dd id="EmailClassification.all_keys" class="function"><a href="../../bases/graph/state_base.html#StateBase.all_keys">all_keys</a></dd>
 
             </div>
                                 </dl>
@@ -197,12 +202,17 @@ __iter__, and __len__.</p>
     </div>
     <a class="headerlink" href="#EmailAgentState"></a>
     
-            <div class="docstring"><p>A MutableMapping is a generic container for associating
-key/value pairs.</p>
+            <div class="docstring"><p>Base class for state management with key aliasing and nested key support.</p>
 
-<p>This class provides concrete generic implementations of all
-methods except for __getitem__, __setitem__, __delitem__,
-__iter__, and __len__.</p>
+<p>This class extends UserDict to provide state management capabilities
+with support for key aliasing, nested access, and validation. It allows
+mapping external keys to internal state attributes through a dictionary
+mapping and provides methods for state manipulation. Extend dict is only
+for isinstance(self, dict) be True</p>
+
+<p>this class support get value by keys: self["key1"]["key2"]["key3"] --> self["key1.key2.key3"]</p>
+
+<p>self.all_keys() can recursively return keys()</p>
 </div>
 
 
@@ -323,10 +333,10 @@ __iter__, and __len__.</p>
                                 <dd id="EmailAgentState.__init__" class="function"><a href="../../bases/graph/state_base.html#StateBase.__init__">StateBase</a></dd>
                 <dd id="EmailAgentState.set_allow_key_lost" class="function"><a href="../../bases/graph/state_base.html#StateBase.set_allow_key_lost">set_allow_key_lost</a></dd>
                 <dd id="EmailAgentState.dictionary" class="variable"><a href="../../bases/graph/state_base.html#StateBase.dictionary">dictionary</a></dd>
-                <dd id="EmailAgentState.all_keys" class="function"><a href="../../bases/graph/state_base.html#StateBase.all_keys">all_keys</a></dd>
                 <dd id="EmailAgentState.stash_dictionary" class="function"><a href="../../bases/graph/state_base.html#StateBase.stash_dictionary">stash_dictionary</a></dd>
                 <dd id="EmailAgentState.stash_pop_dictionary" class="function"><a href="../../bases/graph/state_base.html#StateBase.stash_pop_dictionary">stash_pop_dictionary</a></dd>
                 <dd id="EmailAgentState.set_dictionary" class="function"><a href="../../bases/graph/state_base.html#StateBase.set_dictionary">set_dictionary</a></dd>
+                <dd id="EmailAgentState.all_keys" class="function"><a href="../../bases/graph/state_base.html#StateBase.all_keys">all_keys</a></dd>
 
             </div>
                                 </dl>

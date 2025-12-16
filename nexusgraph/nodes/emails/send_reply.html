@@ -42,7 +42,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -72,8 +72,10 @@
     </div>
     <a class="headerlink" href="#SendReply"></a>
     
-            <div class="docstring"><p>Helper class that provides a standard way to create an ABC using
-inheritance.</p>
+            <div class="docstring"><p>Abstract base class for all nodes in the graph execution system.</p>
+
+<p>This class provides the core functionality for nodes, including parameter handling,
+state management, and execution flow control. Subclasses must implement the <code><a href="#SendReply.call">call</a></code> method.</p>
 </div>
 
 
@@ -98,12 +100,6 @@ inheritance.</p>
                                     <div><dt><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></dt>
                                 <dd id="SendReply.__init__" class="function"><a href="../../bases/graph/node_base.html#NodeBase.__init__">NodeBase</a></dd>
                 <dd id="SendReply.node_map_value" class="variable"><a href="../../bases/graph/node_base.html#NodeBase.node_map_value">node_map_value</a></dd>
-                <dd id="SendReply.generate_return_info" class="function"><a href="../../bases/graph/node_base.html#NodeBase.generate_return_info">generate_return_info</a></dd>
-                <dd id="SendReply.get" class="function"><a href="../../bases/graph/node_base.html#NodeBase.get">get</a></dd>
-                <dd id="SendReply.load_param_to_states_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.load_param_to_states_dict">load_param_to_states_dict</a></dd>
-                <dd id="SendReply.load_param_to_nodes_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.load_param_to_nodes_dict">load_param_to_nodes_dict</a></dd>
-                <dd id="SendReply.read_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.read_describe">read_describe</a></dd>
-                <dd id="SendReply.desribe_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.desribe_dict">desribe_dict</a></dd>
                 <dd id="SendReply.print" class="function"><a href="../../bases/graph/node_base.html#NodeBase.print">print</a></dd>
                 <dd id="SendReply.function_desc" class="function"><a href="../../bases/graph/node_base.html#NodeBase.function_desc">function_desc</a></dd>
                 <dd id="SendReply.state_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.state_labels">state_labels</a></dd>
@@ -112,8 +108,11 @@ inheritance.</p>
                 <dd id="SendReply.runtime_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.runtime_labels">runtime_labels</a></dd>
                 <dd id="SendReply.node_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.node_labels">node_labels</a></dd>
                 <dd id="SendReply.all_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.all_labels">all_labels</a></dd>
-                <dd id="SendReply.post_result" class="function"><a href="../../bases/graph/node_base.html#NodeBase.post_result">post_result</a></dd>
-                <dd id="SendReply.node_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.node_describe">node_describe</a></dd>
+                <dd id="SendReply.read_label_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.read_label_describe">read_label_describe</a></dd>
+                <dd id="SendReply.desribe_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.desribe_dict">desribe_dict</a></dd>
+                <dd id="SendReply.set_states_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_states_alias_dict">set_states_alias_dict</a></dd>
+                <dd id="SendReply.set_nodes_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_nodes_alias_dict">set_nodes_alias_dict</a></dd>
+                <dd id="SendReply.get" class="function"><a href="../../bases/graph/node_base.html#NodeBase.get">get</a></dd>
 
             </div>
                                 </dl>

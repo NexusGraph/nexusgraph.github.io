@@ -54,7 +54,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -68,7 +68,12 @@
                     <h1 class="modulename">
 <a href="./../../../nexusgraph.html">nexusgraph</a><wbr>.<a href="./../../bases.html">bases</a><wbr>.<a href="./../factory.html">factory</a><wbr>.register_factory    </h1>
 
-                
+                        <div class="docstring"><p>Register factory module for managing callable objects.</p>
+
+<p>This module provides a generic factory class for registering and managing
+callable objects (functions, classes, etc.) with flexible registration methods.</p>
+</div>
+
                 
                 
                 
@@ -88,27 +93,33 @@
 <p>This class provides a flexible way to register callable objects (functions, classes, etc.)
 and retrieve them by keys. It supports both direct registration and decorator usage.</p>
 
-<p>example:</p>
+<p>Example usage:</p>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code><span class="n">funcs</span> <span class="o">=</span> <span class="n">RegisterFactory</span><span class="p">[</span><span class="n">function</span><span class="p">](</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;my_function&quot;</span><span class="p">)</span>
+<pre><span></span><code><span class="c1"># Create a factory for functions</span>
+<span class="n">funcs</span> <span class="o">=</span> <span class="n">RegisterFactory</span><span class="p">[</span><span class="n">function</span><span class="p">](</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;my_function&quot;</span><span class="p">)</span>
 
+<span class="c1"># Register using decorator without arguments</span>
 <span class="nd">@funcs</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">func1</span><span class="p">():</span>
     <span class="k">pass</span>
 
+<span class="c1"># Register using decorator with arguments</span>
 <span class="nd">@funcs</span><span class="p">()</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">func2</span><span class="p">():</span>
     <span class="k">pass</span>
 
-<span class="nd">@funcs3</span><span class="p">(</span><span class="s2">&quot;func3&quot;</span><span class="p">)</span>
+<span class="c1"># Register with custom key</span>
+<span class="nd">@funcs</span><span class="p">(</span><span class="s2">&quot;func3&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">func</span><span class="p">():</span>
     <span class="k">pass</span>
 
+<span class="c1"># Register classes</span>
 <span class="nd">@register</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="p">():</span>
     <span class="k">pass</span>
 
+<span class="c1"># Create a factory for custom objects</span>
 <span class="n">myobjects</span> <span class="o">=</span> <span class="n">RegisterFactory</span><span class="p">[</span><span class="n">MyObject</span><span class="p">](</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;my object&quot;</span><span class="p">)</span>
 <span class="nd">@myobjects</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MyClass1</span><span class="p">(</span><span class="n">MyObject</span><span class="p">):</span>

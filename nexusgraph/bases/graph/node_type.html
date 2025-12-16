@@ -102,7 +102,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -116,7 +116,13 @@
                     <h1 class="modulename">
 <a href="./../../../nexusgraph.html">nexusgraph</a><wbr>.<a href="./../../bases.html">bases</a><wbr>.<a href="./../graph.html">graph</a><wbr>.node_type    </h1>
 
-                
+                        <div class="docstring"><p>Node type definitions and utilities for graph processing.</p>
+
+<p>This module provides type annotations, enumerations, and utility functions
+for handling node input/output types in the graph processing system.
+It includes parameter flags, type transfer functions, and type checking utilities.</p>
+</div>
+
                 
                 
                 
@@ -155,7 +161,10 @@
     </div>
     <a class="headerlink" href="#ParamFlag"></a>
     
-            <div class="docstring"><p>enum flag to announce Node I/O type</p>
+            <div class="docstring"><p>Enumeration for parameter flags in node I/O type annotations.</p>
+
+<p>These flags are used to classify different types of parameters in the
+graph processing system, determining how they are handled during node execution.</p>
 </div>
 
 
@@ -259,7 +268,7 @@
                 <section id="IGNORE">
                     <div class="attr variable">
             <span class="name">IGNORE</span>        =
-<span class="default_value">typing.Annotated[~T, &lt;<a href="#ParamFlag.STATE">ParamFlag.STATE</a>: 3&gt;]</span>
+<span class="default_value">typing.Annotated[~T, &lt;<a href="#ParamFlag.IGNORE">ParamFlag.IGNORE</a>: 2&gt;]</span>
 
         
     </div>
@@ -338,19 +347,23 @@
     </div>
     <a class="headerlink" href="#transfer_type_hints"></a>
     
-            <div class="docstring"><p>classify a type and get ParamFlag. if not ParamFlag, return (type, <a href="#ParamFlag.UNKNOWN">ParamFlag.UNKNOWN</a>)</p>
+            <div class="docstring"><p>Classify a type and extract its parameter flag.</p>
+
+<p>This function analyzes a type annotation to determine its actual type
+and associated parameter flag. If the type is not annotated with a
+ParamFlag, it returns the type with the default flag.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>a</strong>:  说明</li>
-<li><strong>default</strong>:  说明</li>
+<li><strong>a</strong>:  The type to analyze and classify</li>
+<li><strong>default</strong>:  The default parameter flag to use if none is found</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <blockquote>
-  <p>说明</p>
+  <p>A tuple containing the actual type and its parameter flag</p>
 </blockquote>
 </div>
 
@@ -366,18 +379,22 @@
     </div>
     <a class="headerlink" href="#get_type_exclude_annotation"></a>
     
-            <div class="docstring"><p>if value is annotated as Annotated[real_type, ....], return real_type, else return itself</p>
+            <div class="docstring"><p>Extract the underlying type from an Annotated type.</p>
+
+<p>If the input type is an Annotated[real_type, ...], this function
+recursively extracts and returns the real_type. Otherwise, it returns
+the type as-is.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>a</strong>:  type to exclude annotation</li>
+<li><strong>a</strong>:  The type to extract annotation from</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <blockquote>
-  <p>real type without annotation</p>
+  <p>The underlying type without annotations</p>
 </blockquote>
 </div>
 
@@ -393,22 +410,26 @@
     </div>
     <a class="headerlink" href="#get_type_hints_with_param_flag"></a>
     
-            <div class="docstring"><p>get_type_hints return like, but from Dict[str, type] to Dict[str, Tuple[type, ParamFlag]], if no ParamFlag-tip, set (Any, ParamFlag.default)  instead</p>
+            <div class="docstring"><p>Get type hints with parameter flags for a function or method.</p>
+
+<p>This function extends the standard get_type_hints() by returning a
+dictionary mapping parameter names to tuples of (type, ParamFlag).
+Parameters without ParamFlag annotations receive the default flag.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>obj</strong>:  obj to get_type_hints</li>
-<li><strong>default</strong>:  if no ParamFlag-tip, set (type, default)</li>
-<li><strong>include_extras</strong>:  get_type_hints param, False will get all ParamFlag to default</li>
-<li><strong>args</strong>:  extern param give to get_type_hints(...)</li>
-<li><strong>kwargs</strong>:  extern param give to get_type_hints(...)</li>
+<li><strong>obj</strong>:  The object to get type hints for</li>
+<li><strong>default</strong>:  Default flag for parameters without ParamFlag annotations</li>
+<li><strong>include_extras</strong>:  Whether to include extra annotations in type hints</li>
+<li><strong>args</strong>:  Additional arguments to pass to get_type_hints()</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments to pass to get_type_hints()</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <blockquote>
-  <p>param dict</p>
+  <p>Dictionary mapping parameter names to (type, ParamFlag) tuples</p>
 </blockquote>
 </div>
 
@@ -424,18 +445,22 @@
     </div>
     <a class="headerlink" href="#classify_type_hints"></a>
     
-            <div class="docstring"><p>classify Dict[str, Tuple[type, ParamFlag]] to Dict[ParamFlag, Dict[str, type]]</p>
+            <div class="docstring"><p>Classify type hints by their parameter flags.</p>
+
+<p>This function reorganizes a dictionary of parameter names to (type, ParamFlag)
+tuples into a dictionary grouped by ParamFlag, each containing a dictionary
+of parameter names to their types.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>announce</strong>:  dict with Dict[str, Tuple[type, ParamFlag]]</li>
+<li><strong>announce</strong>:  Dictionary mapping parameter names to (type, ParamFlag) tuples</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <blockquote>
-  <p>classify by ParamFlag</p>
+  <p>Dictionary grouped by ParamFlag, each containing parameter name to type mappings</p>
 </blockquote>
 </div>
 
@@ -451,19 +476,23 @@
     </div>
     <a class="headerlink" href="#check_type_hints"></a>
     
-            <div class="docstring"><p>check call function param types ok</p>
+            <div class="docstring"><p>Check if all type hints in a function are valid.</p>
+
+<p>This function validates all type hints in a function or method to ensure
+they are appropriate for their parameter flags. If any invalid types are
+found, it returns a dictionary of the problematic parameters.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>obj</strong>:  function to check</li>
-<li><strong>allow_unknown</strong>:  ignore types that with no ParamFlag</li>
+<li><strong>obj</strong>:  The function or method to check</li>
+<li><strong>allow_unknown</strong>:  Whether to allow types with no ParamFlag</li>
 </ul>
 
 <h6 id="returns">Returns</h6>
 
 <blockquote>
-  <p>None or dict to describe error params</p>
+  <p>None if all types are valid, or a dictionary of invalid parameters</p>
 </blockquote>
 </div>
 

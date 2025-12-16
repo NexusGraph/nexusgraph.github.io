@@ -54,7 +54,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -84,7 +84,12 @@
     </div>
     <a class="headerlink" href="#DataClassBase"></a>
     
-    
+            <div class="docstring"><p>Base dataclass with common utility methods.</p>
+
+<p>This class provides a foundation for dataclasses in the NexusGraph project,
+offering methods for attribute access, serialization, and deserialization.</p>
+</div>
+
 
                             <div id="DataClassBase.get" class="classattr">
                                 <div class="attr function">
@@ -96,7 +101,22 @@
     </div>
     <a class="headerlink" href="#DataClassBase.get"></a>
     
-    
+            <div class="docstring"><p>Get attribute value with a default fallback.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>attribute_name</strong>:  Name of the attribute to retrieve</li>
+<li><strong>default</strong>:  Default value to return if attribute doesn't exist</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Attribute value or default</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="DataClassBase.pop" class="classattr">
@@ -109,7 +129,22 @@
     </div>
     <a class="headerlink" href="#DataClassBase.pop"></a>
     
-    
+            <div class="docstring"><p>Remove and return attribute value with a default fallback.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>attribute_name</strong>:  Name of the attribute to remove and retrieve</li>
+<li><strong>default</strong>:  Default value to return if attribute doesn't exist</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Removed attribute value or default</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="DataClassBase.as_dict" class="classattr">
@@ -122,7 +157,15 @@
     </div>
     <a class="headerlink" href="#DataClassBase.as_dict"></a>
     
-    
+            <div class="docstring"><p>Convert dataclass to dictionary.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Dictionary representation of the dataclass</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="DataClassBase.save_path" class="classattr">
@@ -135,7 +178,15 @@
     </div>
     <a class="headerlink" href="#DataClassBase.save_path"></a>
     
-    
+            <div class="docstring"><p>Save dataclass to file at specified path.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>path</strong>:  File path where the dataclass will be saved</li>
+</ul>
+</div>
+
 
                             </div>
                             <div id="DataClassBase.from_path" class="classattr">
@@ -149,7 +200,22 @@
     </div>
     <a class="headerlink" href="#DataClassBase.from_path"></a>
     
-    
+            <div class="docstring"><p>Create dataclass instance from YAML/JSON file.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>path</strong>:  Path to the configuration YAML/JSON file</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments for parsing</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>New instance of the dataclass</p>
+</blockquote>
+</div>
+
 
                             </div>
                 </section>

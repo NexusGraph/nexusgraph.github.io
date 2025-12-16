@@ -34,25 +34,13 @@
                     <a class="class" href="#NodeBase">NodeBase</a>
                             <ul class="memberlist">
                         <li>
+                                <a class="function" href="#NodeBase.__init__">NodeBase</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#NodeBase.node_map_value">node_map_value</a>
                         </li>
                         <li>
-                                <a class="function" href="#NodeBase.generate_return_info">generate_return_info</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#NodeBase.get">get</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#NodeBase.load_param_to_states_dict">load_param_to_states_dict</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#NodeBase.load_param_to_nodes_dict">load_param_to_nodes_dict</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#NodeBase.read_describe">read_describe</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#NodeBase.desribe_dict">desribe_dict</a>
+                                <a class="function" href="#NodeBase.call">call</a>
                         </li>
                         <li>
                                 <a class="function" href="#NodeBase.print">print</a>
@@ -79,13 +67,19 @@
                                 <a class="function" href="#NodeBase.all_labels">all_labels</a>
                         </li>
                         <li>
-                                <a class="function" href="#NodeBase.post_result">post_result</a>
+                                <a class="function" href="#NodeBase.read_label_describe">read_label_describe</a>
                         </li>
                         <li>
-                                <a class="function" href="#NodeBase.node_describe">node_describe</a>
+                                <a class="function" href="#NodeBase.desribe_dict">desribe_dict</a>
                         </li>
                         <li>
-                                <a class="function" href="#NodeBase.call">call</a>
+                                <a class="function" href="#NodeBase.set_states_alias_dict">set_states_alias_dict</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NodeBase.set_nodes_alias_dict">set_nodes_alias_dict</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#NodeBase.get">get</a>
                         </li>
                 </ul>
 
@@ -102,7 +96,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -131,11 +125,38 @@
     </div>
     <a class="headerlink" href="#NodeBase"></a>
     
-            <div class="docstring"><p>Helper class that provides a standard way to create an ABC using
-inheritance.</p>
+            <div class="docstring"><p>Abstract base class for all nodes in the graph execution system.</p>
+
+<p>This class provides the core functionality for nodes, including parameter handling,
+state management, and execution flow control. Subclasses must implement the <code><a href="#NodeBase.call">call</a></code> method.</p>
 </div>
 
 
+                            <div id="NodeBase.__init__" class="classattr">
+                                <div class="attr function">
+            
+        <span class="name">NodeBase</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">param_to_states_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>,</span><span class="param">	<span class="n">param_to_nodes_dict</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>,</span><span class="param">	<span class="n">key_lost</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;exception&#39;</span><span class="p">,</span> <span class="s1">&#39;warning&#39;</span><span class="p">,</span> <span class="s1">&#39;remain&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;remain&#39;</span>,</span><span class="param">	<span class="n">node_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span>)</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.__init__"></a>
+    
+            <div class="docstring"><p>Initialize the NodeBase instance.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>param_to_states_dict</strong>:  Mapping or path to file containing parameter to state-key mappings</li>
+<li><strong>param_to_nodes_dict</strong>:  Mapping or path to file containing parameter to node-key mappings</li>
+<li><strong>key_lost</strong>:  How to handle keys that are missing in maps - "exception", "warning", or "remain"</li>
+<li><strong>node_name</strong>:  Name of the node in graph</li>
+<li><strong>debug</strong>:  Whether to enable debug mode for additional logging</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments for external parameters(as runtime param)</li>
+</ul>
+</div>
+
+
+                            </div>
                             <div id="NodeBase.node_map_value" class="classattr">
                                 <div class="attr variable">
             <span class="name">node_map_value</span>        =
@@ -144,233 +165,6 @@ inheritance.</p>
         
     </div>
     <a class="headerlink" href="#NodeBase.node_map_value"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.generate_return_info" class="classattr">
-                                <div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">generate_return_info</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.generate_return_info"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.get" class="classattr">
-                                <div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">get</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">key</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">default</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">):</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.get"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.load_param_to_states_dict" class="classattr">
-                                <div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">load_param_to_states_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">]</span></span><span class="return-annotation">):</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.load_param_to_states_dict"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.load_param_to_nodes_dict" class="classattr">
-                                <div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">load_param_to_nodes_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">]</span></span><span class="return-annotation">):</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.load_param_to_nodes_dict"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.read_describe" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">read_describe</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">label</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.read_describe"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.desribe_dict" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">desribe_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">dict</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.desribe_dict"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.print" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">print</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span></span><span class="return-annotation">):</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.print"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.function_desc" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">function_desc</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.function_desc"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.state_labels" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">state_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.state_labels"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.input_labels" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">input_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.input_labels"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.output_labels" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">output_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.output_labels"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.runtime_labels" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">runtime_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.runtime_labels"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.node_labels" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">node_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.node_labels"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.all_labels" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">all_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.all_labels"></a>
-    
-    
-
-                            </div>
-                            <div id="NodeBase.post_result" class="classattr">
-                                <div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">post_result</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">result</span></span><span class="return-annotation">):</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.post_result"></a>
-    
-            <div class="docstring"><p>modify result before return</p>
-
-<h6 id="parameters">Parameters</h6>
-
-<ul>
-<li><strong>result</strong>:  result generate by this node</li>
-</ul>
-</div>
-
-
-                            </div>
-                            <div id="NodeBase.node_describe" class="classattr">
-                                <div class="attr function">
-                    <div class="decorator decorator-classmethod">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">node_describe</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="n"><a href="node_describe.html#NodeDescribe">nexusgraph.bases.graph.node_describe.NodeDescribe</a></span>:</span></span>
-
-        
-    </div>
-    <a class="headerlink" href="#NodeBase.node_describe"></a>
     
     
 
@@ -386,7 +180,13 @@ inheritance.</p>
     </div>
     <a class="headerlink" href="#NodeBase.call"></a>
     
-            <div class="docstring"><div class="pdoc-code codehilite">
+            <div class="docstring"><p>You need to rewrite this function to implement the specific Node.</p>
+
+<p>This function fulfills the specific functions of the Node.
+The base class merely provides runtime transformation,
+so the derived class does not need to consider how the runtime actual value is associated with the state and graph.</p>
+
+<div class="pdoc-code codehilite">
 <pre><span></span><code><span class="c1"># example 1</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
@@ -470,6 +270,303 @@ inheritance.</p>
 
 
                             </div>
+                            <div id="NodeBase.print" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">print</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;&#39;</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.print"></a>
+    
+            <div class="docstring"><p>Print a formatted description of the node.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>prefix</strong>:  String to prepend to each printed line</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.function_desc" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">function_desc</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.function_desc"></a>
+    
+            <div class="docstring"><p>Get the function description for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Function description</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.state_labels" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">state_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.state_labels"></a>
+    
+            <div class="docstring"><p>Get the list of state labels for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of state labels</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.input_labels" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">input_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.input_labels"></a>
+    
+            <div class="docstring"><p>Get the list of input labels for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of input labels</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.output_labels" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">output_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.output_labels"></a>
+    
+            <div class="docstring"><p>Get the list of output labels for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of output labels</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.runtime_labels" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">runtime_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.runtime_labels"></a>
+    
+            <div class="docstring"><p>Get the list of runtime labels for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of runtime labels</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.node_labels" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">node_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.node_labels"></a>
+    
+            <div class="docstring"><p>Get the list of node labels for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of node labels</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.all_labels" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">all_labels</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.all_labels"></a>
+    
+            <div class="docstring"><p>Get the list of all labels for the node.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Combined list of all label types</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.read_label_describe" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">read_label_describe</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span>, </span><span class="param"><span class="n">label</span><span class="o">=</span><span class="kc">None</span>, </span><span class="param"><span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.read_label_describe"></a>
+    
+            <div class="docstring"><p>Read hints descriptions current node class.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>label</strong>:  The label to get description for, None for function description</li>
+<li><strong>default</strong>:  Default value if label is not found</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Description string for the label or function</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.desribe_dict" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">desribe_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="nb">dict</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.desribe_dict"></a>
+    
+            <div class="docstring"><p>Get a dictionary containing all descriptions for call(...) of current node class.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>a dict to describe node usage</p>
+</blockquote>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.set_states_alias_dict" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">set_states_alias_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">]</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.set_states_alias_dict"></a>
+    
+            <div class="docstring"><p>Load dict or JSON/YAML to state mappings from configuration.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>config</strong>:  Path to configuration file or mapping object</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.set_nodes_alias_dict" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">set_nodes_alias_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">]</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.set_nodes_alias_dict"></a>
+    
+            <div class="docstring"><p>Load dict or JSON/YAML to node mappings from configuration.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>config</strong>:  Path to configuration file or mapping object</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="NodeBase.get" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">key</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">default</span><span class="o">=</span><span class="kc">None</span></span><span class="return-annotation">):</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.get"></a>
+    
+            <div class="docstring"><p>Get a value from the external runtime dictionary that give by __init__</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>key</strong>:  The key to retrieve</li>
+<li><strong>default</strong>:  Default value to return if key is not found</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The value associated with the key or the default value</p>
+</blockquote>
+</div>
+
+
+                            </div>
                 </section>
                 <section id="NodeBaseWrap">
                     <div class="attr function">
@@ -481,9 +578,7 @@ inheritance.</p>
     </div>
     <a class="headerlink" href="#NodeBaseWrap"></a>
     
-            <div class="docstring"><p>wrap one function to NodeBase class</p>
-
-<p>you can define your Node for example</p>
+            <div class="docstring"><p>wrap one function to NodeBase class and you can define your Node for example:</p>
 
 <div class="pdoc-code codehilite">
 <pre><span></span><code><span class="nd">@NodeBaseWrap</span><span class="p">(</span><span class="n">insert_self</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -521,7 +616,26 @@ inheritance.</p>
     </div>
     <a class="headerlink" href="#ensure_function"></a>
     
-    
+            <div class="docstring"><p>Ensure the input is a callable function.</p>
+
+<p>If the input is a NodeBase class, instantiates it and returns the instance.
+Otherwise, returns the input unchanged.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>obj</strong>:  Object to check</li>
+<li><strong>arg</strong>:  Positional arguments for NodeBase instantiation</li>
+<li><strong>kwargs</strong>:  Keyword arguments for NodeBase instantiation</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Callable function or NodeBase instance</p>
+</blockquote>
+</div>
+
 
                 </section>
                 <section id="ensure_nodebase">
@@ -534,7 +648,7 @@ inheritance.</p>
     </div>
     <a class="headerlink" href="#ensure_nodebase"></a>
     
-            <div class="docstring"><p>return itself if obj is NodeBase, oe Wrap it to NodeBase Class</p>
+            <div class="docstring"><p>return itself if obj is NodeBase, or Wrap it to NodeBase Class</p>
 
 <h6 id="parameters">Parameters</h6>
 

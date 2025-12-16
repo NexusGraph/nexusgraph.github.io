@@ -81,7 +81,7 @@
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -110,7 +110,14 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase"></a>
     
-    
+            <div class="docstring"><p>Base class for workflow management and execution.</p>
+
+<p>This class provides the core functionality for building, configuring,
+and executing workflows in the graph processing system. It handles
+node registration, state management, edge connections, and workflow
+compilation based on configuration data.</p>
+</div>
+
 
                             <div id="WorkFlowBase.__init__" class="classattr">
                                 <div class="attr function">
@@ -121,7 +128,23 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.__init__"></a>
     
-    
+            <div class="docstring"><p>Initialize the WorkFlowBase instance.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>config</strong>:  Workflow configuration data</li>
+<li><strong>args</strong>:  Additional positional arguments</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments</li>
+</ul>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>AssertionError</strong>:  If config is not an instance of DataClassBase</li>
+</ul>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.node_mapping" class="classattr">
@@ -162,13 +185,36 @@
                     <div class="decorator decorator-classmethod">@classmethod</div>
 
         <span class="def">def</span>
-        <span class="name">from_config</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	workflow_cls: Type = &lt;class &#x27;<a href="../../dataclass/workflow.html#WorkFlowData">nexusgraph.dataclass.workflow.WorkFlowData</a>&#x27;&gt;,</span><span class="param">	<span class="o">*</span><span class="n">args</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">) -> <span class="n"><a href="#WorkFlowBase">WorkFlowBase</a></span>:</span></span>
+        <span class="name">from_config</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">cls</span>,</span><span class="param">	<span class="n">path</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">	workflow_cls: Type[<a href="../dataclass/dataclass_base.html#DataClassBase">nexusgraph.bases.dataclass.dataclass_base.DataClassBase</a>] = &lt;class &#x27;<a href="../../dataclass/workflow.html#WorkFlowData">nexusgraph.dataclass.workflow.WorkFlowData</a>&#x27;&gt;,</span><span class="param">	<span class="o">*</span><span class="n">args</span>,</span><span class="param">	<span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">) -> <span class="n"><a href="#WorkFlowBase">WorkFlowBase</a></span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#WorkFlowBase.from_config"></a>
     
-    
+            <div class="docstring"><p>Create a WorkFlowBase instance from a JSON/YAML configuration file.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>path</strong>:  Path to the JSON/YAML configuration file.</li>
+<li><strong>workflow_cls</strong>:  Class to use for load JSON/YAML, need to be subclass of DataClassBase</li>
+<li><strong>args</strong>:  Additional positional arguments</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>A new WorkFlowBase instance</p>
+</blockquote>
+
+<h6 id="raises">Raises</h6>
+
+<ul>
+<li><strong>AssertionError</strong>:  If workflow_cls is not a subclass of DataClassBase</li>
+</ul>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_version" class="classattr">
@@ -181,7 +227,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_version"></a>
     
-    
+            <div class="docstring"><p>Get the version of the workflow configuration.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The version string</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_states_data" class="classattr">
@@ -194,7 +248,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_states_data"></a>
     
-    
+            <div class="docstring"><p>Get the list of state data from the configuration.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of state config data objects</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_edges_data" class="classattr">
@@ -207,7 +269,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_edges_data"></a>
     
-    
+            <div class="docstring"><p>Get the list of edge config data from the configuration.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of edge data objects</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_nodes_data" class="classattr">
@@ -220,7 +290,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_nodes_data"></a>
     
-    
+            <div class="docstring"><p>Get the list of node config data from the configuration.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of node data objects</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_externs_data" class="classattr">
@@ -233,7 +311,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_externs_data"></a>
     
-    
+            <div class="docstring"><p>Get the external config data from the configuration.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Dictionary of external data</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_support_states" class="classattr">
@@ -247,7 +333,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_support_states"></a>
     
-    
+            <div class="docstring"><p>Get supported state classes in  NexusGraph.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Dictionary mapping state names to state classes</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.get_support_nodes" class="classattr">
@@ -261,7 +355,15 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.get_support_nodes"></a>
     
-    
+            <div class="docstring"><p>Get supported node classes in  NexusGraph.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Dictionary mapping node names to node classes</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.compile" class="classattr">
@@ -274,7 +376,22 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.compile"></a>
     
-    
+            <div class="docstring"><p>Compile the workflow for execution.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>args</strong>:  Additional positional arguments for LangGraph compile</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments for LangGraph compile</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>The compiled workflow graph</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="WorkFlowBase.visualize_graph" class="classattr">
@@ -288,7 +405,16 @@
     </div>
     <a class="headerlink" href="#WorkFlowBase.visualize_graph"></a>
     
-    
+            <div class="docstring"><p>Visualize the workflow graph. may get print to your terminal</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>app</strong>:  The compiled workflow graph</li>
+<li><strong>format</strong>:  The output format for visualization</li>
+</ul>
+</div>
+
 
                             </div>
                 </section>

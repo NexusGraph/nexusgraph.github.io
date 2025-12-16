@@ -43,9 +43,6 @@
                                 <a class="variable" href="#StateBase.dictionary">dictionary</a>
                         </li>
                         <li>
-                                <a class="function" href="#StateBase.all_keys">all_keys</a>
-                        </li>
-                        <li>
                                 <a class="function" href="#StateBase.stash_dictionary">stash_dictionary</a>
                         </li>
                         <li>
@@ -54,13 +51,16 @@
                         <li>
                                 <a class="function" href="#StateBase.set_dictionary">set_dictionary</a>
                         </li>
+                        <li>
+                                <a class="function" href="#StateBase.all_keys">all_keys</a>
+                        </li>
                 </ul>
 
             </li>
     </ul>
 
 
-            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
+            <footer>Commit Version: 9ebbc046aeb44b8099f5924c989e9922aa04ea81</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -89,12 +89,17 @@
     </div>
     <a class="headerlink" href="#StateBase"></a>
     
-            <div class="docstring"><p>A MutableMapping is a generic container for associating
-key/value pairs.</p>
+            <div class="docstring"><p>Base class for state management with key aliasing and nested key support.</p>
 
-<p>This class provides concrete generic implementations of all
-methods except for __getitem__, __setitem__, __delitem__,
-__iter__, and __len__.</p>
+<p>This class extends UserDict to provide state management capabilities
+with support for key aliasing, nested access, and validation. It allows
+mapping external keys to internal state attributes through a dictionary
+mapping and provides methods for state manipulation. Extend dict is only
+for isinstance(self, dict) be True</p>
+
+<p>this class support get value by keys: self["key1"]["key2"]["key3"] --> self["key1.key2.key3"]</p>
+
+<p>self.all_keys() can recursively return keys()</p>
 </div>
 
 
@@ -107,24 +112,17 @@ __iter__, and __len__.</p>
     </div>
     <a class="headerlink" href="#StateBase.__init__"></a>
     
-            <div class="docstring"><p>__init__ 的 Docstring</p>
+            <div class="docstring"><p>Initialize the StateBase instance.</p>
 
 <h6 id="parameters">Parameters</h6>
 
 <ul>
-<li><strong>self</strong>:  说明</li>
-<li><strong>allow_key_lost</strong>:  说明</li>
-<li><strong>allow_warning</strong>:  说明</li>
-<li><strong>split</strong>:  说明</li>
-<li><strong>args</strong>:  说明</li>
-<li><strong>kwargs</strong>:  说明</li>
+<li><strong>allow_key_lost</strong>:  Whether to allow keys not in the alias dictionary, false can raise Exception</li>
+<li><strong>allow_warning</strong>:  Whether to show warnings for missing keys</li>
+<li><strong>split</strong>:  Character used to split keys, default is '.'</li>
+<li><strong>args</strong>:  Additional positional arguments passed to UserDict</li>
+<li><strong>kwargs</strong>:  Additional keyword arguments passed to UserDict</li>
 </ul>
-
-<h6 id="returns">Returns</h6>
-
-<blockquote>
-  <p>说明</p>
-</blockquote>
 </div>
 
 
@@ -139,7 +137,16 @@ __iter__, and __len__.</p>
     </div>
     <a class="headerlink" href="#StateBase.set_allow_key_lost"></a>
     
-    
+            <div class="docstring"><p>Set the behavior for handling keys not in the alias dictionary.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>allow_key_lost</strong>:  Whether to allow keys not in the alias dictionary, false will raise Exception</li>
+<li><strong>allow_warning</strong>:  Whether to show warnings for missing keys</li>
+</ul>
+</div>
+
 
                             </div>
                             <div id="StateBase.dictionary" class="classattr">
@@ -150,20 +157,15 @@ __iter__, and __len__.</p>
     </div>
     <a class="headerlink" href="#StateBase.dictionary"></a>
     
-    
+            <div class="docstring"><p>Get the alias dictionary for key mapping.</p>
 
-                            </div>
-                            <div id="StateBase.all_keys" class="classattr">
-                                <div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">all_keys</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+<h6 id="returns">Returns</h6>
 
-        
-    </div>
-    <a class="headerlink" href="#StateBase.all_keys"></a>
-    
-    
+<blockquote>
+  <p>The alias dictionary</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="StateBase.stash_dictionary" class="classattr">
@@ -176,7 +178,9 @@ __iter__, and __len__.</p>
     </div>
     <a class="headerlink" href="#StateBase.stash_dictionary"></a>
     
-    
+            <div class="docstring"><p>Store the current alias dictionary in cache. max cache for one time</p>
+</div>
+
 
                             </div>
                             <div id="StateBase.stash_pop_dictionary" class="classattr">
@@ -189,20 +193,57 @@ __iter__, and __len__.</p>
     </div>
     <a class="headerlink" href="#StateBase.stash_pop_dictionary"></a>
     
-    
+            <div class="docstring"><p>Restore the alias dictionary from cache.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>True if restoration was successful, False if no cached dictionary</p>
+</blockquote>
+</div>
+
 
                             </div>
                             <div id="StateBase.set_dictionary" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">set_dictionary</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">value</span><span class="p">:</span> <span class="n">Mapping</span></span><span class="return-annotation">):</span></span>
+        <span class="name">set_dictionary</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">value</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">|</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
     <a class="headerlink" href="#StateBase.set_dictionary"></a>
     
+            <div class="docstring"><p>Set the alias dictionary for key mapping.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>value</strong>:  The alias dictionary. None means no alias, which is different from {}</li>
+</ul>
+</div>
+
+
+                            </div>
+                            <div id="StateBase.all_keys" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">all_keys</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">list</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#StateBase.all_keys"></a>
     
+            <div class="docstring"><p>Get all keys in the state, including nested keys.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of all keys in the state</p>
+</blockquote>
+</div>
+
 
                             </div>
                 </section>
