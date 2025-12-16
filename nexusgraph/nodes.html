@@ -33,7 +33,7 @@
             </ul>
 
 
-            <footer>Commit Version: ad9b61195e7dd2bb46e53a776cfe07a7811a32a7</footer>
+            <footer>Commit Version: c8ad5b6b4be65688ba4c470aa2e9300c61bc491f</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -52,31 +52,19 @@
 </blockquote>
 
 <ul>
-<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmail">ReadEmail</a>: Email Reading Node
-<ul>
-<li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and  converting it into a format suitable for further processing. It serves as the  starting point in the email processing workflow, typically used to extract  and prepare email data.  In a production environment, this node would connect to an actual email service  (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
-</ul></li>
-<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReview">HumanReview</a>: Human review node for email agent workflow.
+<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTracking">BugTracking</a></li>
+<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/classify_indent.html#ClassifyIntent">ClassifyIntent</a></li>
+<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponse">DraftResponse</a>: Generate response using context and route based on quality</li>
+<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReview">HumanReview</a>: Human review node for email agent workflow.
 <ul>
 <li><code>detail describe</code>: This node interrupts the workflow to present a generated email response to a human reviewer for approval or editing. Based on the reviewer's decision, it either proceeds to send the response or ends the workflow.</li>
 </ul></li>
-<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReply">SendReply</a>: Abstract base class for all nodes in the graph execution system.
+<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmail">ReadEmail</a>: Email Reading Node
 <ul>
-<li><code>detail describe</code>: This class provides the core functionality for nodes, including parameter handling, state management, and execution flow control. Subclasses must implement the <code>call</code> method.</li>
+<li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and  converting it into a format suitable for further processing. It serves as the  starting point in the email processing workflow, typically used to extract  and prepare email data.  In a production environment, this node would connect to an actual email service  (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
 </ul></li>
-<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/classify_indent.html#ClassifyIntent">ClassifyIntent</a>: Abstract base class for all nodes in the graph execution system.
-<ul>
-<li><code>detail describe</code>: This class provides the core functionality for nodes, including parameter handling, state management, and execution flow control. Subclasses must implement the <code>call</code> method.</li>
-</ul></li>
-<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTracking">BugTracking</a>: Abstract base class for all nodes in the graph execution system.
-<ul>
-<li><code>detail describe</code>: This class provides the core functionality for nodes, including parameter handling, state management, and execution flow control. Subclasses must implement the <code>call</code> method.</li>
-</ul></li>
-<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponse">DraftResponse</a>: Generate response using context and route based on quality</li>
-<li>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentation">SearchDocumentation</a>: Abstract base class for all nodes in the graph execution system.
-<ul>
-<li><code>detail describe</code>: This class provides the core functionality for nodes, including parameter handling, state management, and execution flow control. Subclasses must implement the <code>call</code> method.</li>
-</ul></li>
+<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentation">SearchDocumentation</a></li>
+<li>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReply">SendReply</a></li>
 </ul>
 </div>
 
