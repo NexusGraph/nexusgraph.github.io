@@ -33,7 +33,7 @@
             </ul>
 
 
-            <footer>Commit Version: d6e6ce787a852feb4f416cb5cae7264f4c89b640</footer>
+            <footer>Commit Version: ad9b61195e7dd2bb46e53a776cfe07a7811a32a7</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -52,9 +52,18 @@
 </blockquote>
 
 <ul>
-<li><a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
-<li><a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
-<li><a href="https://nexusgraph.github.io/nexusgraph/states/emails/custom_email_agent.html#EmailAgentStateCustom">EmailAgentStateCustom</a></li>
+<li>[1/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a>: Base class for state management with key aliasing and nested key support.
+<ul>
+<li><code>detail describe</code>: This class extends UserDict to provide state management capabilities with support for key aliasing, nested access, and validation. It allows mapping external keys to internal state attributes through a dictionary mapping and provides methods for state manipulation. Extend dict is only for isinstance(self, dict) be True  this class support get value by keys: self["key1"]["key2"]["key3"] --> self["key1.key2.key3"]  self.all_keys() can recursively return keys()</li>
+</ul></li>
+<li>[2/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a>: Base class for state management with key aliasing and nested key support.
+<ul>
+<li><code>detail describe</code>: This class extends UserDict to provide state management capabilities with support for key aliasing, nested access, and validation. It allows mapping external keys to internal state attributes through a dictionary mapping and provides methods for state manipulation. Extend dict is only for isinstance(self, dict) be True  this class support get value by keys: self["key1"]["key2"]["key3"] --> self["key1.key2.key3"]  self.all_keys() can recursively return keys()</li>
+</ul></li>
+<li>[3/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/custom_email_agent.html#EmailAgentStateCustom">EmailAgentStateCustom</a>: Base class for state management with key aliasing and nested key support.
+<ul>
+<li><code>detail describe</code>: This class extends UserDict to provide state management capabilities with support for key aliasing, nested access, and validation. It allows mapping external keys to internal state attributes through a dictionary mapping and provides methods for state manipulation. Extend dict is only for isinstance(self, dict) be True  this class support get value by keys: self["key1"]["key2"]["key3"] --> self["key1.key2.key3"]  self.all_keys() can recursively return keys()</li>
+</ul></li>
 </ul>
 </div>
 

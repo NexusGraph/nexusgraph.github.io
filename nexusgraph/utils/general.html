@@ -36,7 +36,7 @@
     </ul>
 
 
-            <footer>Commit Version: d6e6ce787a852feb4f416cb5cae7264f4c89b640</footer>
+            <footer>Commit Version: ad9b61195e7dd2bb46e53a776cfe07a7811a32a7</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -59,23 +59,28 @@
                     <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">visualize_graph</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">app</span><span class="p">:</span> <span class="nb">object</span>,</span><span class="param">	<span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ascii&#39;</span>,</span><span class="param">	<span class="n">png_filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;example.png&#39;</span>,</span><span class="param">	<span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span><span class="return-annotation">) -> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span>:</span></span>
+        <span class="name">visualize_graph</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">app</span><span class="p">:</span> <span class="n">langgraph</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">CompiledStateGraph</span>,</span><span class="param">	<span class="n">output_format</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;mermaid&#39;</span><span class="p">,</span> <span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="s1">&#39;png&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ascii&#39;</span>,</span><span class="param">	<span class="n">png_filepath</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;example.png&#39;</span>,</span><span class="param">	<span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span></span><span class="return-annotation">) -> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span>:</span></span>
 
         
     </div>
     <a class="headerlink" href="#visualize_graph"></a>
     
-            <div class="docstring"><p>Args:
-    app: The LangGraph workflow object or its graph representation.
-    output_format: Format to return. Options are: "ascii", "mermaid", "json", "png"
-    png_filepath: Path to save PNG file when output_format is "png"
-    verbose: Whether to print outputs to console (for ASCII and Mermaid)</p>
+            <div class="docstring"><p>visualize_graph 的 Docstring</p>
 
-<p>Returns:
-    - If output_format is "ascii": The ASCII representation as string
-    -                  is "mermaid": The Mermaid diagram code as string
-    -                  is "json": The graph data as a dictionary
-    -                  is "png": None (file saved to disk)</p>
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>app</strong>:  The LangGraph workflow object or its graph representation.</li>
+<li><strong>output_format</strong>:  Format to return.</li>
+<li><strong>png_filepath</strong>:  Path to save PNG file when output_format is "png"</li>
+<li><strong>verbose</strong>:  Whether to print outputs to console (for ASCII and Mermaid)</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>"ascii": The ASCII representation as string; "mermaid": The Mermaid diagram code as string; "json": The graph data as a dictionary; "png": None (file saved to disk)</p>
+</blockquote>
 </div>
 
 
