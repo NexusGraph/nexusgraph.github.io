@@ -21,6 +21,26 @@
             <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
                    pattern=".+" required>
 
+            <h2>Contents</h2>
+            <ul>
+  <li><a href="#nexusgraph">NexusGraph</a></li>
+  <li><a href="#features">Features</a>
+  <ul>
+    <li><a href="#advantages">Advantages</a></li>
+    <li><a href="#why-nexusgraph-over-langgraph">Why NexusGraph Over LangGraph?</a></li>
+  </ul></li>
+  <li><a href="#usage">Usage</a>
+  <ul>
+    <li><a href="#env-setup">env setup</a></li>
+    <li><a href="#example">example</a></li>
+  </ul></li>
+  <li><a href="#support-states">Support States</a></li>
+  <li><a href="#support-nodes">Support Nodes</a></li>
+  <li><a href="#support-workflows">Support WorkFlows</a></li>
+  <li><a href="#contact-me">Contact me</a></li>
+  <li><a href="#acknowledgments">Acknowledgments</a></li>
+</ul>
+
 
             <h2>Submodules</h2>
             <ul>
@@ -34,6 +54,7 @@
             </ul>
 
 
+            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -47,7 +68,115 @@
                     <h1 class="modulename">
 nexusgraph    </h1>
 
-                
+                        <div class="docstring"><h1 id="nexusgraph">NexusGraph</h1>
+
+<p>a structured framework for Collaborative AI Workflows based on LangGraph</p>
+
+<ul>
+<li><p>news</p>
+
+<ul>
+<li>[25/12] support FrameWork version 0.0.1 publish</li>
+</ul></li>
+</ul>
+
+<h1 id="features">Features</h1>
+
+<p>NexusGraph is an enhanced framework built on top of LangGraph that standardizes node, state and workflow definitions while enabling YAML-based configuration. By introducing structured abstractions and declarative setup, NexusGraph makes complex agent system more accessible, maintainable, and team-friendly.</p>
+
+<h2 id="advantages">Advantages</h2>
+
+<ul>
+<li><p>🎯 Standardized Components</p>
+
+<p>NexusGraph offers clear and detailed patterns with comprehensive documentation for defining nodes, states and workflows, thereby reducing decision fatigue and ensuring consistency in large codebases. Compared with LangGraph, we offer Node templates instead of functions, which enables the implementation of nodes to be reused on a large scale.</p></li>
+<li><p>⚙️ Json/YAML-Powered Configuration</p>
+
+<p>Design and modify your agent workflows through simple YAML files—separating logic from configuration and enabling rapid prototyping without code changes.</p></li>
+<li><p>🔧 Decoupled Node &amp; Agent Lifecycle</p>
+
+<p>Node development is fully decoupled from agent assembly—build and test nodes in isolation, then wire them together via YAML at configuration time. This enables true parallel development across large teams, eliminating bottlenecks and merge conflicts.</p></li>
+<li><p>🤝 Built for Teams</p>
+
+<p>With clear conventions and declarative syntax, NexusGraph lowers the barrier to entry for new developers and streamlines code reviews, making it ideal for collaborative development.</p></li>
+</ul>
+
+<h2 id="why-nexusgraph-over-langgraph">Why NexusGraph Over LangGraph?</h2>
+
+<p>While LangGraph offers flexibility, NexusGraph trades some of that freedom for productivity and predictability—helping teams ship reliable AI agents faster without sacrificing power.</p>
+
+<h1 id="usage">Usage</h1>
+
+<h2 id="env-setup">env setup</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:NexusGraph/nexusgraph.git
+<span class="nb">cd</span><span class="w"> </span>nexusgraph
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+
+<span class="c1"># for developer</span>
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>dev<span class="o">]</span>
+</code></pre>
+</div>
+
+<h2 id="example">example</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code>python<span class="w"> </span>example/example_2.py
+</code></pre>
+</div>
+
+<h1 id="support-states">Support States</h1>
+
+<blockquote>
+  <p>Derive from <a href="https://nexusgraph.github.io/nexusgraph/bases/graph/state_base.html#StateBase">StateBase</a> Derive Support</p>
+</blockquote>
+
+<ul>
+<li><a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/states/emails/custom_email_agent.html#EmailAgentStateCustom">EmailAgentStateCustom</a></li>
+</ul>
+
+<h1 id="support-nodes">Support Nodes</h1>
+
+<blockquote>
+  <p>Derive from <a href="https://nexusgraph.github.io/nexusgraph/bases/graph/node_base.html#NodeBase">NodeBase</a> Derive Support</p>
+</blockquote>
+
+<ul>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmail">ReadEmail</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReview">HumanReview</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReply">SendReply</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/classify_indent.html#ClassifyIntent">ClassifyIntent</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTracking">BugTracking</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponse">DraftResponse</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentation">SearchDocumentation</a></li>
+</ul>
+
+<h1 id="support-workflows">Support WorkFlows</h1>
+
+<blockquote>
+  <p>Derive from <a href="https://nexusgraph.github.io/nexusgraph/bases/workflow/workflow_base.html#WorkFlowBase">WorkFlowBase</a> Derive Support</p>
+</blockquote>
+
+<ul>
+<li><a href="https://nexusgraph.github.io/nexusgraph/workflows/email_agent.html#EmailAgentWorkflow">EmailAgentWorkflow</a></li>
+<li><a href="https://nexusgraph.github.io/nexusgraph/workflows/email_agent_custom.html#EmailAgentWorkflowCustom">EmailAgentWorkflowCustom</a></li>
+</ul>
+
+<h1 id="contact-me">Contact me</h1>
+
+<ul>
+<li><a href="https://github.com/oneflyingfish">Yu Tian</a>: a_flying_fish@outlook.com</li>
+<li><a href="https://github.com/HashimotoPatrickMu">Mu HaoJie</a></li>
+</ul>
+
+<h1 id="acknowledgments">Acknowledgments</h1>
+
+<p>Our project was developed based on <a href="https://github.com/langchain-ai/langgraph">LangGraph</a> and many excellent third-party tools. We would like to express our sincere gratitude to them.</p>
+</div>
+
                 
                 
                 

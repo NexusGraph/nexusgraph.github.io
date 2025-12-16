@@ -33,6 +33,7 @@
             </ul>
 
 
+            <footer>Commit Version: 57a138c22d73d0cd37fdf9e9f81753a7872f69d8</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -46,7 +47,37 @@
                     <h1 class="modulename">
 <a href="./../../nexusgraph.html">nexusgraph</a><wbr>.<a href="./../bases.html">bases</a><wbr>.factory    </h1>
 
-                
+                        <div class="docstring"><p>define base class and type for NexusGraph factory</p>
+
+<ul>
+<li><p><a href="factory/register_factory.html">RegisterFactory</a>: template of RegisterFactory, register one callable type to dict</p>
+
+<p>example:</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="n">register</span> <span class="o">=</span> <span class="n">RegisterFactory</span><span class="p">[</span><span class="n">function</span><span class="p">]()</span>
+
+<span class="nd">@register</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">func1</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;func1&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="nd">@register</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">func2</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;func2&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># alias func3_ to func3</span>
+<span class="nd">@register</span><span class="p">(</span><span class="s2">&quot;func3&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">func3_</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;func3&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="n">register</span><span class="p">[</span><span class="s2">&quot;func1&quot;</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># print &quot;func1, 1&quot;</span>
+<span class="n">register</span><span class="p">[</span><span class="s2">&quot;func2&quot;</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># print &quot;func2, 1&quot;</span>
+<span class="n">register</span><span class="p">[</span><span class="s2">&quot;func3&quot;</span><span class="p">](</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># print &quot;func3, 1&quot;</span>
+</code></pre>
+</div></li>
+</ul>
+</div>
+
                 
                 
                 
