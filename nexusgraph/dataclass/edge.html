@@ -40,7 +40,16 @@
                                 <a class="variable" href="#EdgeData.start">start</a>
                         </li>
                         <li>
-                                <a class="variable" href="#EdgeData.to">to</a>
+                                <a class="variable" href="#EdgeData.nexts">nexts</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#EdgeData.outbounds">outbounds</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#EdgeData.get_outbound_default">get_outbound_default</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#EdgeData.get_nexts">get_nexts</a>
                         </li>
                 </ul>
 
@@ -48,7 +57,7 @@
     </ul>
 
 
-            <footer>Commit Version: c8ad5b6b4be65688ba4c470aa2e9300c61bc491f</footer>
+            <footer>Commit Version: b4b4b0b955fa631e6c997f2cdf8546c8cf38549a</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -85,7 +94,7 @@
                             <div id="EdgeData.__init__" class="classattr">
                                 <div class="attr function">
             
-        <span class="name">EdgeData</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">start</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">to</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+        <span class="name">EdgeData</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">start</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>,</span><span class="param">	<span class="n">nexts</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param">	<span class="n">outbounds</span><span class="p">:</span> <span class="n"><a href="key_value.html#KeyValue">nexusgraph.dataclass.key_value.KeyValue</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">factory</span><span class="o">&gt;</span></span>)</span>
 
         
     </div>
@@ -96,7 +105,8 @@
                             </div>
                             <div id="EdgeData.start" class="classattr">
                                 <div class="attr variable">
-            <span class="name">start</span><span class="annotation">: str</span>
+            <span class="name">start</span><span class="annotation">: bool</span>        =
+<span class="default_value">False</span>
 
         
     </div>
@@ -105,13 +115,51 @@
     
 
                             </div>
-                            <div id="EdgeData.to" class="classattr">
+                            <div id="EdgeData.nexts" class="classattr">
                                 <div class="attr variable">
-            <span class="name">to</span><span class="annotation">: str</span>
+            <span class="name">nexts</span><span class="annotation">: str | list[str] | None</span>        =
+<span class="default_value">None</span>
 
         
     </div>
-    <a class="headerlink" href="#EdgeData.to"></a>
+    <a class="headerlink" href="#EdgeData.nexts"></a>
+    
+    
+
+                            </div>
+                            <div id="EdgeData.outbounds" class="classattr">
+                                <div class="attr variable">
+            <span class="name">outbounds</span><span class="annotation">: <a href="key_value.html#KeyValue">nexusgraph.dataclass.key_value.KeyValue</a></span>
+
+        
+    </div>
+    <a class="headerlink" href="#EdgeData.outbounds"></a>
+    
+    
+
+                            </div>
+                            <div id="EdgeData.get_outbound_default" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_outbound_default</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#EdgeData.get_outbound_default"></a>
+    
+    
+
+                            </div>
+                            <div id="EdgeData.get_nexts" class="classattr">
+                                <div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_nexts</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#EdgeData.get_nexts"></a>
     
     
 

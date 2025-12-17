@@ -32,6 +32,7 @@
   <li><a href="#usage">Usage</a>
   <ul>
     <li><a href="#install">install</a></li>
+    <li><a href="#query">query</a></li>
     <li><a href="#example">example</a></li>
   </ul></li>
   <li><a href="#support-states">Support States</a></li>
@@ -54,7 +55,7 @@
             </ul>
 
 
-            <footer>Commit Version: c8ad5b6b4be65688ba4c470aa2e9300c61bc491f</footer>
+            <footer>Commit Version: b4b4b0b955fa631e6c997f2cdf8546c8cf38549a</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -119,10 +120,143 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </code></pre>
 </div>
 
-<h2 id="example">example</h2>
+<h2 id="query">query</h2>
+
+<blockquote>
+  <p>you can query node config args by <a href="https://nexusgraph.github.io">https://nexusgraph.github.io</a>, or use local cli-tools</p>
+</blockquote>
 
 <div class="pdoc-code codehilite">
-<pre><span></span><code>python<span class="w"> </span>example/example_2.py
+<pre><span></span><code>python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>nodes<span class="w"> </span>--list<span class="w">              </span><span class="c1"># List all node keys</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>nodes<span class="w"> </span>--list<span class="w"> </span>&lt;key&gt;<span class="w">        </span><span class="c1"># Show details for specific node</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>states<span class="w"> </span>--list<span class="w">             </span><span class="c1"># List all state keys</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>states<span class="w"> </span>--list<span class="w"> </span>&lt;key&gt;<span class="w">       </span><span class="c1"># Show details for specific state</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>agents<span class="w"> </span>--list<span class="w">             </span><span class="c1"># List all agent keys</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>agents<span class="w"> </span>--list<span class="w"> </span>&lt;key&gt;<span class="w">       </span><span class="c1"># Show details for specific agent</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>--list<span class="w">                    </span><span class="c1"># Show all components</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w"> </span>--list<span class="w"> </span>&lt;key&gt;<span class="w">              </span><span class="c1"># Show details for specific component</span>
+python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">                           </span><span class="c1"># Same as --list (default behavior)</span>
+</code></pre>
+</div>
+
+<h2 id="example">example</h2>
+
+<blockquote>
+  <p>We decoupled the development of Node from the specific Workflow, enabling the development team to maximize reusability and collaboration in completing the development of the Node collection. When we need to build a workflow, we only need to configure YAML to determine the relationship between data and connections between nodes, and then they can be reused in a large number of unrelated workflows.</p>
+</blockquote>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn"><a href="nexusgraph/bases/workflow.html">nexusgraph.bases.workflow</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkFlowBase</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Command</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.checkpoint.memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">MemorySaver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn"><a href="nexusgraph/utils/dummy_chat_openai.html">nexusgraph.utils.dummy_chat_openai</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyChatOpenAI</span>
+
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">WorkFlowBase</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span>
+    <span class="s2">&quot;example/email_agent.yaml&quot;</span><span class="p">,</span>
+    <span class="n">llm</span><span class="o">=</span><span class="n">DummyChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">checkpointer</span> <span class="o">=</span> <span class="n">MemorySaver</span><span class="p">()</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">checkpointer</span><span class="o">=</span><span class="n">checkpointer</span><span class="p">)</span>
+<span class="n">workflow</span><span class="o">.</span><span class="n">visualize_graph</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+<span class="n">config_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;configurable&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;thread_id&quot;</span><span class="p">:</span> <span class="s2">&quot;email-agent-12345&quot;</span><span class="p">}}</span>
+
+<span class="n">initial_state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;email_content&quot;</span><span class="p">:</span> <span class="s2">&quot;this is test email content&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;sender_email&quot;</span><span class="p">:</span> <span class="s2">&quot;test@email.com&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;email_id&quot;</span><span class="p">:</span> <span class="s2">&quot;12345&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;classification&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;search_results&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;customer_history&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;draft_response&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;messages&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;current_step&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># for huamn review, resume only when True</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">initial_state</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config_id</span><span class="p">)</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">&quot;__interrupt__&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;__interrupt__&quot;</span><span class="p">])):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;interrupt info[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">]:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;__interrupt__&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+        <span class="nb">print</span><span class="p">()</span>
+
+        <span class="n">approved</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;approved draft_response or not [y/N]:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;y&quot;</span> <span class="ow">in</span> <span class="n">approved</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">human_decision_data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s2">&quot;edited_response&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draft_response&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;and response has been reviewed and approved.&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">human_decision_data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;edited_response&quot;</span><span class="p">:</span> <span class="s2">&quot;agent give &#39;&quot;</span>
+                <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draft_response&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot;&#39; and be refused by human.&quot;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">Command</span><span class="p">(</span><span class="n">resume</span><span class="o">=</span><span class="n">human_decision_data</span><span class="p">),</span> <span class="n">config</span><span class="o">=</span><span class="n">config_id</span><span class="p">)</span>
+        <span class="k">continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Agent end state:&quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+        <span class="k">break</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">example output:</span>
+<span class="sd">--- Graph ASCII Representation ---</span>
+<span class="sd">                                     +-----------+                                         </span>
+<span class="sd">                                     | __start__ |                                         </span>
+<span class="sd">                                     +-----------+                                         </span>
+<span class="sd">                                            *                                              </span>
+<span class="sd">                                            *                                              </span>
+<span class="sd">                                            *                                              </span>
+<span class="sd">                                    +------------+                                         </span>
+<span class="sd">                                    | read_email |                                         </span>
+<span class="sd">                                    +------------+                                         </span>
+<span class="sd">                                            .                                              </span>
+<span class="sd">                                            .                                              </span>
+<span class="sd">                                            .                                              </span>
+<span class="sd">                                  +----------------+                                       </span>
+<span class="sd">                                  | classify_email |..                                     </span>
+<span class="sd">                            ......+----------------+  ......                               </span>
+<span class="sd">                      ......        ...          ...        ......                         </span>
+<span class="sd">                ......             .                .             ......                   </span>
+<span class="sd">            ....                 ..                  ...                ......             </span>
+<span class="sd">+----------+           +-------------+                ...                     ....         </span>
+<span class="sd">| deal_bug |.          | search_info |            ....                           .         </span>
+<span class="sd">+----------+ ...       +-------------+        ....                               .         </span>
+<span class="sd">                .....         .          .....                                   .         </span>
+<span class="sd">                     ...      .      ....                                        .         </span>
+<span class="sd">                        ...   .   ...                                            .         </span>
+<span class="sd">                     +----------------+                                          .         </span>
+<span class="sd">                     | draft_response |....                                      .         </span>
+<span class="sd">                     +----------------+    .........                             .         </span>
+<span class="sd">                              .                     ........                     .         </span>
+<span class="sd">                              .                             .........            .         </span>
+<span class="sd">                              .                                      .....       .         </span>
+<span class="sd">                              .                                          +--------------+  </span>
+<span class="sd">                              .                                      ....| human_review |  </span>
+<span class="sd">                              .                             .........    +--------------+  </span>
+<span class="sd">                              .                    .........                     .         </span>
+<span class="sd">                              .           .........                              .         </span>
+<span class="sd">                              .      .....                                       .         </span>
+<span class="sd">                       +------------+                                         ....         </span>
+<span class="sd">                       | send_reply |                                   ......             </span>
+<span class="sd">                       +------------+                            .......                   </span>
+<span class="sd">                                    ..                    .......                          </span>
+<span class="sd">                                      ..            ......                                 </span>
+<span class="sd">                                        ..      ....                                       </span>
+<span class="sd">                                      +---------+                                          </span>
+<span class="sd">                                      | __end__ |                                          </span>
+<span class="sd">                                      +---------+                                          </span>
+<span class="sd">interrupt info[1]: Interrupt(value={&#39;email_sender&#39;: &#39;test@email.com&#39;, &#39;original_email_content&#39;: &#39;this is test email content&#39;, &#39;draft_response&#39;: &#39;This is a dummy response from the fake OpenAI model from else. &#39;, &#39;urgency&#39;: &#39;medium&#39;, &#39;intent&#39;: &#39;bug&#39;, &#39;action&#39;: &#39;Please review and approve/edit this response&#39;}, id=&#39;2c45923b0289db394d3849f2577ca3e6&#39;)</span>
+
+<span class="sd">approved draft_response or not [y/N]:y</span>
+<span class="sd">&gt; human review done.</span>
+<span class="sd">Sending reply: This is a dummy response from the fake OpenAI model from else. and response has been reviewed and approved.</span>
+<span class="sd">Agent end state: {&#39;email_content&#39;: &#39;this is test email content&#39;, &#39;sender_email&#39;: &#39;test@email.com&#39;, &#39;email_id&#39;: &#39;12345&#39;, &#39;classification&#39;: {&#39;intent&#39;: &#39;bug&#39;, &#39;urgency&#39;: &#39;medium&#39;, &#39;topic&#39;: &#39;system function error&#39;, &#39;summary&#39;: &#39;login error for user&#39;}, &#39;search_results&#39;: None, &#39;customer_history&#39;: None, &#39;draft_response&#39;: &#39;This is a dummy response from the fake OpenAI model from else. &#39;, &#39;messages&#39;: &#39;This is a dummy response from the fake OpenAI model from else. and response has been reviewed and approved.&#39;, &#39;current_step&#39;: {&#39;deal_bug&#39;}, &#39;human_approved&#39;: False}</span>
+<span class="sd">&#39;&#39;&#39;</span>
 </code></pre>
 </div>
 
@@ -133,9 +267,8 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </blockquote>
 
 <ul>
-<li>[1/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
-<li>[2/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/custom_email_agent.html#EmailAgentStateCustom">EmailAgentStateCustom</a></li>
-<li>[3/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
+<li>[1/2] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
+<li>[2/2] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
 </ul>
 
 <h1 id="support-nodes">Support Nodes</h1>
@@ -145,19 +278,34 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </blockquote>
 
 <ul>
-<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTracking">BugTracking</a></li>
-<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/classify_indent.html#ClassifyIntent">ClassifyIntent</a></li>
-<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponse">DraftResponse</a>: Generate response using context and route based on quality</li>
-<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReview">HumanReview</a>: Human review node for email agent workflow.
+<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
+<ul>
+<li><code>detail describe</code>: This node interfaces with the bug tracking system to create new tickets or update existing ones based on email content classified as bug reports.</li>
+</ul></li>
+<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
+<ul>
+<li><code>detail describe</code>: This node generates email responses using context from search results, customer history, and the original email content. It determines whether human review is needed based on urgency and intent.</li>
+</ul></li>
+<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
+<ul>
+<li><code>detail describe</code>: This node uses a language model to analyze email content and classify it according to intent, urgency, topic, and provides a summary. Based on the classification, it routes the email to the appropriate next node in the workflow.</li>
+</ul></li>
+<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
 <ul>
 <li><code>detail describe</code>: This node interrupts the workflow to present a generated email response to a human reviewer for approval or editing. Based on the reviewer's decision, it either proceeds to send the response or ends the workflow.</li>
 </ul></li>
-<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmail">ReadEmail</a>: Email Reading Node
+<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
 <ul>
-<li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and  converting it into a format suitable for further processing. It serves as the  starting point in the email processing workflow, typically used to extract  and prepare email data.  In a production environment, this node would connect to an actual email service  (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
+<li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and converting it into a format suitable for further processing. It serves as the starting point in the email processing workflow, typically used to extract and prepare email data.  In a production environment, this node would connect to an actual email service (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
 </ul></li>
-<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentation">SearchDocumentation</a></li>
-<li>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReply">SendReply</a></li>
+<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
+<ul>
+<li><code>detail describe</code>: This node searches the knowledge base for relevant information based on the intent and topic extracted from email classification. It stores the search results for use in response drafting.</li>
+</ul></li>
+<li>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.
+<ul>
+<li><code>detail describe</code>: This node is responsible for sending the final email response to the customer. In a production environment, it would integrate with an email service provider or SMTP server to deliver the message.</li>
+</ul></li>
 </ul>
 
 <h1 id="support-workflows">Support WorkFlows</h1>
@@ -165,11 +313,6 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <blockquote>
   <p>Derive from <a href="https://nexusgraph.github.io/nexusgraph/bases/workflow/workflow_base.html#WorkFlowBase">WorkFlowBase</a> Derive Support</p>
 </blockquote>
-
-<ul>
-<li>[1/2] <a href="https://nexusgraph.github.io/nexusgraph/workflows/email_agent.html#EmailAgentWorkflow">EmailAgentWorkflow</a></li>
-<li>[2/2] <a href="https://nexusgraph.github.io/nexusgraph/workflows/email_agent_custom.html#EmailAgentWorkflowCustom">EmailAgentWorkflowCustom</a></li>
-</ul>
 
 <h1 id="acknowledgments">Acknowledgments</h1>
 

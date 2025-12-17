@@ -31,10 +31,10 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
-                    <a class="class" href="#SearchDocumentation">SearchDocumentation</a>
+                    <a class="class" href="#SearchDocumentationNode">SearchDocumentationNode</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#SearchDocumentation.call">call</a>
+                                <a class="function" href="#SearchDocumentationNode.call">call</a>
                         </li>
                 </ul>
 
@@ -42,7 +42,7 @@
     </ul>
 
 
-            <footer>Commit Version: c8ad5b6b4be65688ba4c470aa2e9300c61bc491f</footer>
+            <footer>Commit Version: b4b4b0b955fa631e6c997f2cdf8546c8cf38549a</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -61,35 +61,51 @@
                 
                 
             </section>
-                <section id="SearchDocumentation">
+                <section id="SearchDocumentationNode">
                     <div class="attr class">
                     <div class="decorator decorator-node_register">@node_register()</div>
 
     <span class="def">class</span>
-    <span class="name">SearchDocumentation</span><wbr>(<span class="base"><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></span>):
+    <span class="name">SearchDocumentationNode</span><wbr>(<span class="base"><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></span>):
 
         
     </div>
-    <a class="headerlink" href="#SearchDocumentation"></a>
+    <a class="headerlink" href="#SearchDocumentationNode"></a>
     
-            <div class="docstring"><p>Abstract base class for all nodes in the graph execution system.</p>
+            <div class="docstring"><p>Node for searching documentation based on email classification.</p>
 
-<p>This class provides the core functionality for nodes, including parameter handling,
-state management, and execution flow control. Subclasses must implement the <code><a href="#SearchDocumentation.call">call</a></code> method.</p>
+<p>This node searches the knowledge base for relevant information based on the
+intent and topic extracted from email classification. It stores the search
+results for use in response drafting.</p>
 </div>
 
 
-                            <div id="SearchDocumentation.call" class="classattr">
+                            <div id="SearchDocumentationNode.call" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">call</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">state</span><span class="p">:</span> <span class="n">STATE</span><span class="p">[</span><span class="n"><a href="../../bases/graph/state_base.html#StateBase">nexusgraph.bases.graph.state_base.StateBase</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="n">langgraph</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Command</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="s1">&#39;draft_response&#39;</span><span class="p">]]</span>:</span></span>
+        <span class="name">call</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">intent</span><span class="p">:</span> <span class="n">INPUT</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>,</span><span class="param">	<span class="n">topic</span><span class="p">:</span> <span class="n">INPUT</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>,</span><span class="param">	<span class="n">search_results_key</span><span class="p">:</span> <span class="n">OUTPUT_KEY</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>,</span><span class="param">	<span class="n">next_node</span><span class="p">:</span> <span class="n">NODE_KEY</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span></span><span class="return-annotation">):</span></span>
 
         
     </div>
-    <a class="headerlink" href="#SearchDocumentation.call"></a>
+    <a class="headerlink" href="#SearchDocumentationNode.call"></a>
     
-            <div class="docstring"><p>Search knowledge base for relevant information</p>
+            <div class="docstring"><p>Search knowledge base for relevant information.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>intent</strong>:  The intent of the email (question, feature, etc.)</li>
+<li><strong>topic</strong>:  The topic of the email</li>
+<li><strong>search_results_key</strong>:  Output key for storing search results</li>
+<li><strong>next_node</strong>:  Key for the next node in the workflow</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Command with search results and next node destination</p>
+</blockquote>
 </div>
 
 
@@ -98,21 +114,22 @@ state management, and execution flow control. Subclasses must implement the <cod
                                 <h5>Inherited Members</h5>
                                 <dl>
                                     <div><dt><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></dt>
-                                <dd id="SearchDocumentation.__init__" class="function"><a href="../../bases/graph/node_base.html#NodeBase.__init__">NodeBase</a></dd>
-                <dd id="SearchDocumentation.node_map_value" class="variable"><a href="../../bases/graph/node_base.html#NodeBase.node_map_value">node_map_value</a></dd>
-                <dd id="SearchDocumentation.print" class="function"><a href="../../bases/graph/node_base.html#NodeBase.print">print</a></dd>
-                <dd id="SearchDocumentation.function_desc" class="function"><a href="../../bases/graph/node_base.html#NodeBase.function_desc">function_desc</a></dd>
-                <dd id="SearchDocumentation.state_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.state_labels">state_labels</a></dd>
-                <dd id="SearchDocumentation.input_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.input_labels">input_labels</a></dd>
-                <dd id="SearchDocumentation.output_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.output_labels">output_labels</a></dd>
-                <dd id="SearchDocumentation.runtime_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.runtime_labels">runtime_labels</a></dd>
-                <dd id="SearchDocumentation.node_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.node_labels">node_labels</a></dd>
-                <dd id="SearchDocumentation.all_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.all_labels">all_labels</a></dd>
-                <dd id="SearchDocumentation.read_label_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.read_label_describe">read_label_describe</a></dd>
-                <dd id="SearchDocumentation.desribe_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.desribe_dict">desribe_dict</a></dd>
-                <dd id="SearchDocumentation.set_states_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_states_alias_dict">set_states_alias_dict</a></dd>
-                <dd id="SearchDocumentation.set_nodes_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_nodes_alias_dict">set_nodes_alias_dict</a></dd>
-                <dd id="SearchDocumentation.get" class="function"><a href="../../bases/graph/node_base.html#NodeBase.get">get</a></dd>
+                                <dd id="SearchDocumentationNode.__init__" class="function"><a href="../../bases/graph/node_base.html#NodeBase.__init__">NodeBase</a></dd>
+                <dd id="SearchDocumentationNode.node_map_value" class="variable"><a href="../../bases/graph/node_base.html#NodeBase.node_map_value">node_map_value</a></dd>
+                <dd id="SearchDocumentationNode.print" class="function"><a href="../../bases/graph/node_base.html#NodeBase.print">print</a></dd>
+                <dd id="SearchDocumentationNode.function_desc" class="function"><a href="../../bases/graph/node_base.html#NodeBase.function_desc">function_desc</a></dd>
+                <dd id="SearchDocumentationNode.state_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.state_labels">state_labels</a></dd>
+                <dd id="SearchDocumentationNode.input_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.input_labels">input_labels</a></dd>
+                <dd id="SearchDocumentationNode.output_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.output_labels">output_labels</a></dd>
+                <dd id="SearchDocumentationNode.runtime_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.runtime_labels">runtime_labels</a></dd>
+                <dd id="SearchDocumentationNode.node_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.node_labels">node_labels</a></dd>
+                <dd id="SearchDocumentationNode.all_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.all_labels">all_labels</a></dd>
+                <dd id="SearchDocumentationNode.call_param_default" class="function"><a href="../../bases/graph/node_base.html#NodeBase.call_param_default">call_param_default</a></dd>
+                <dd id="SearchDocumentationNode.read_label_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.read_label_describe">read_label_describe</a></dd>
+                <dd id="SearchDocumentationNode.desribe_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.desribe_dict">desribe_dict</a></dd>
+                <dd id="SearchDocumentationNode.set_states_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_states_alias_dict">set_states_alias_dict</a></dd>
+                <dd id="SearchDocumentationNode.set_nodes_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_nodes_alias_dict">set_nodes_alias_dict</a></dd>
+                <dd id="SearchDocumentationNode.get" class="function"><a href="../../bases/graph/node_base.html#NodeBase.get">get</a></dd>
 
             </div>
                                 </dl>

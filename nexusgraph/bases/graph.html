@@ -45,7 +45,7 @@
             </ul>
 
 
-            <footer>Commit Version: c8ad5b6b4be65688ba4c470aa2e9300c61bc491f</footer>
+            <footer>Commit Version: b4b4b0b955fa631e6c997f2cdf8546c8cf38549a</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -68,9 +68,8 @@
 </blockquote>
 
 <ul>
-<li>[1/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
-<li>[2/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/custom_email_agent.html#EmailAgentStateCustom">EmailAgentStateCustom</a></li>
-<li>[3/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
+<li>[1/2] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
+<li>[2/2] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
 </ul>
 
 <h1 id="nodebasegraphnode_basehtml"><a href="graph/node_base.html">NodeBase</a></h1>
@@ -80,19 +79,35 @@
 </blockquote>
 
 <ul>
-<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTracking">BugTracking</a></li>
-<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/classify_indent.html#ClassifyIntent">ClassifyIntent</a></li>
-<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponse">DraftResponse</a>: Generate response using context and route based on quality</li>
-<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReview">HumanReview</a>: Human review node for email agent workflow.
+<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
+<ul>
+<li><code>detail describe</code>: This node interfaces with the bug tracking system to create new tickets or update existing ones based on email content classified as bug reports.</li>
+</ul></li>
+<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
+<ul>
+<li><code>detail describe</code>: This node generates email responses using context from search results, customer history, and the original email content. It determines whether human review is needed based on urgency and intent.</li>
+</ul></li>
+<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
+<ul>
+<li><code>detail describe</code>: This node uses a language model to analyze email content and classify it according to intent, urgency, topic, and provides a summary. Based on the classification, it routes the email to the appropriate next node in the workflow.</li>
+</ul></li>
+<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
 <ul>
 <li><code>detail describe</code>: This node interrupts the workflow to present a generated email response to a human reviewer for approval or editing. Based on the reviewer's decision, it either proceeds to send the response or ends the workflow.</li>
 </ul></li>
-<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmail">ReadEmail</a>: Email Reading Node
+<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
 <ul>
-<li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and  converting it into a format suitable for further processing. It serves as the  starting point in the email processing workflow, typically used to extract  and prepare email data.  In a production environment, this node would connect to an actual email service  (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
+<li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and converting it into a format suitable for further processing. It serves as the starting point in the email processing workflow, typically used to extract and prepare email data.  In a production environment, this node would connect to an actual email service (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
 </ul></li>
-<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentation">SearchDocumentation</a></li>
-<li><p>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReply">SendReply</a></p></li>
+<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
+<ul>
+<li><code>detail describe</code>: This node searches the knowledge base for relevant information based on the intent and topic extracted from email classification. It stores the search results for use in response drafting.</li>
+</ul></li>
+<li><p>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.</p>
+
+<ul>
+<li><code>detail describe</code>: This node is responsible for sending the final email response to the customer. In a production environment, it would integrate with an email service provider or SMTP server to deliver the message.</li>
+</ul></li>
 <li><p><a href="graph/node_describe.html">node_describe</a>: define structure to desribe I/O of Node</p></li>
 <li><a href="graph/node_type.html">node_type</a>: define types define for node</li>
 </ul>

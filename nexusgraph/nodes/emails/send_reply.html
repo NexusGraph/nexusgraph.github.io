@@ -31,10 +31,10 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
-                    <a class="class" href="#SendReply">SendReply</a>
+                    <a class="class" href="#SendReplyNode">SendReplyNode</a>
                             <ul class="memberlist">
                         <li>
-                                <a class="function" href="#SendReply.call">call</a>
+                                <a class="function" href="#SendReplyNode.call">call</a>
                         </li>
                 </ul>
 
@@ -42,7 +42,7 @@
     </ul>
 
 
-            <footer>Commit Version: c8ad5b6b4be65688ba4c470aa2e9300c61bc491f</footer>
+            <footer>Commit Version: b4b4b0b955fa631e6c997f2cdf8546c8cf38549a</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -61,35 +61,49 @@
                 
                 
             </section>
-                <section id="SendReply">
+                <section id="SendReplyNode">
                     <div class="attr class">
                     <div class="decorator decorator-node_register">@node_register()</div>
 
     <span class="def">class</span>
-    <span class="name">SendReply</span><wbr>(<span class="base"><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></span>):
+    <span class="name">SendReplyNode</span><wbr>(<span class="base"><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></span>):
 
         
     </div>
-    <a class="headerlink" href="#SendReply"></a>
+    <a class="headerlink" href="#SendReplyNode"></a>
     
-            <div class="docstring"><p>Abstract base class for all nodes in the graph execution system.</p>
+            <div class="docstring"><p>Node for sending email replies.</p>
 
-<p>This class provides the core functionality for nodes, including parameter handling,
-state management, and execution flow control. Subclasses must implement the <code><a href="#SendReply.call">call</a></code> method.</p>
+<p>This node is responsible for sending the final email response to the customer.
+In a production environment, it would integrate with an email service provider
+or SMTP server to deliver the message.</p>
 </div>
 
 
-                            <div id="SendReply.call" class="classattr">
+                            <div id="SendReplyNode.call" class="classattr">
                                 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">call</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">state</span><span class="p">:</span> <span class="n">STATE</span><span class="p">[</span><span class="n"><a href="../../bases/graph/state_base.html#StateBase">nexusgraph.bases.graph.state_base.StateBase</a></span><span class="p">]</span></span><span class="return-annotation">) -> <span class="nb">dict</span>:</span></span>
+        <span class="name">call</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">message</span><span class="p">:</span> <span class="n">INPUT</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>, </span><span class="param"><span class="nb">next</span><span class="p">:</span> <span class="n">NODE_KEY</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;__end__&#39;</span></span><span class="return-annotation">) -> <span class="nb">dict</span>:</span></span>
 
         
     </div>
-    <a class="headerlink" href="#SendReply.call"></a>
+    <a class="headerlink" href="#SendReplyNode.call"></a>
     
-            <div class="docstring"><p>Send the email response</p>
+            <div class="docstring"><p>Send the email response.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>message</strong>:  The email response to be sent</li>
+<li><strong>next</strong>:  Key for the next node in the workflow (defaults to END)</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Empty dictionary as the workflow ends here</p>
+</blockquote>
 </div>
 
 
@@ -98,21 +112,22 @@ state management, and execution flow control. Subclasses must implement the <cod
                                 <h5>Inherited Members</h5>
                                 <dl>
                                     <div><dt><a href="../../bases/graph/node_base.html#NodeBase">nexusgraph.bases.graph.node_base.NodeBase</a></dt>
-                                <dd id="SendReply.__init__" class="function"><a href="../../bases/graph/node_base.html#NodeBase.__init__">NodeBase</a></dd>
-                <dd id="SendReply.node_map_value" class="variable"><a href="../../bases/graph/node_base.html#NodeBase.node_map_value">node_map_value</a></dd>
-                <dd id="SendReply.print" class="function"><a href="../../bases/graph/node_base.html#NodeBase.print">print</a></dd>
-                <dd id="SendReply.function_desc" class="function"><a href="../../bases/graph/node_base.html#NodeBase.function_desc">function_desc</a></dd>
-                <dd id="SendReply.state_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.state_labels">state_labels</a></dd>
-                <dd id="SendReply.input_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.input_labels">input_labels</a></dd>
-                <dd id="SendReply.output_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.output_labels">output_labels</a></dd>
-                <dd id="SendReply.runtime_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.runtime_labels">runtime_labels</a></dd>
-                <dd id="SendReply.node_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.node_labels">node_labels</a></dd>
-                <dd id="SendReply.all_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.all_labels">all_labels</a></dd>
-                <dd id="SendReply.read_label_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.read_label_describe">read_label_describe</a></dd>
-                <dd id="SendReply.desribe_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.desribe_dict">desribe_dict</a></dd>
-                <dd id="SendReply.set_states_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_states_alias_dict">set_states_alias_dict</a></dd>
-                <dd id="SendReply.set_nodes_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_nodes_alias_dict">set_nodes_alias_dict</a></dd>
-                <dd id="SendReply.get" class="function"><a href="../../bases/graph/node_base.html#NodeBase.get">get</a></dd>
+                                <dd id="SendReplyNode.__init__" class="function"><a href="../../bases/graph/node_base.html#NodeBase.__init__">NodeBase</a></dd>
+                <dd id="SendReplyNode.node_map_value" class="variable"><a href="../../bases/graph/node_base.html#NodeBase.node_map_value">node_map_value</a></dd>
+                <dd id="SendReplyNode.print" class="function"><a href="../../bases/graph/node_base.html#NodeBase.print">print</a></dd>
+                <dd id="SendReplyNode.function_desc" class="function"><a href="../../bases/graph/node_base.html#NodeBase.function_desc">function_desc</a></dd>
+                <dd id="SendReplyNode.state_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.state_labels">state_labels</a></dd>
+                <dd id="SendReplyNode.input_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.input_labels">input_labels</a></dd>
+                <dd id="SendReplyNode.output_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.output_labels">output_labels</a></dd>
+                <dd id="SendReplyNode.runtime_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.runtime_labels">runtime_labels</a></dd>
+                <dd id="SendReplyNode.node_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.node_labels">node_labels</a></dd>
+                <dd id="SendReplyNode.all_labels" class="function"><a href="../../bases/graph/node_base.html#NodeBase.all_labels">all_labels</a></dd>
+                <dd id="SendReplyNode.call_param_default" class="function"><a href="../../bases/graph/node_base.html#NodeBase.call_param_default">call_param_default</a></dd>
+                <dd id="SendReplyNode.read_label_describe" class="function"><a href="../../bases/graph/node_base.html#NodeBase.read_label_describe">read_label_describe</a></dd>
+                <dd id="SendReplyNode.desribe_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.desribe_dict">desribe_dict</a></dd>
+                <dd id="SendReplyNode.set_states_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_states_alias_dict">set_states_alias_dict</a></dd>
+                <dd id="SendReplyNode.set_nodes_alias_dict" class="function"><a href="../../bases/graph/node_base.html#NodeBase.set_nodes_alias_dict">set_nodes_alias_dict</a></dd>
+                <dd id="SendReplyNode.get" class="function"><a href="../../bases/graph/node_base.html#NodeBase.get">get</a></dd>
 
             </div>
                                 </dl>
