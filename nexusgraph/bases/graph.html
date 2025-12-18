@@ -45,7 +45,7 @@
             </ul>
 
 
-            <footer>Commit Version: c4249f0a2f9cc50889363a17443e0bafdba71179</footer>
+            <footer>Commit Version: 21d8f23342b4f85cafb3f5238ebc12a4ab3a54e1</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -79,35 +79,37 @@
 </blockquote>
 
 <ul>
-<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
+<li>[1/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
 <ul>
 <li><code>detail describe</code>: This node interfaces with the bug tracking system to create new tickets or update existing ones based on email content classified as bug reports.</li>
 </ul></li>
-<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
+<li>[2/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
 <ul>
 <li><code>detail describe</code>: This node generates email responses using context from search results, customer history, and the original email content. It determines whether human review is needed based on urgency and intent.</li>
 </ul></li>
-<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
+<li>[3/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
 <ul>
 <li><code>detail describe</code>: This node uses a language model to analyze email content and classify it according to intent, urgency, topic, and provides a summary. Based on the classification, it routes the email to the appropriate next node in the workflow.</li>
 </ul></li>
-<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
+<li>[4/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
 <ul>
 <li><code>detail describe</code>: This node interrupts the workflow to present a generated email response to a human reviewer for approval or editing. Based on the reviewer's decision, it either proceeds to send the response or ends the workflow.</li>
 </ul></li>
-<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
+<li>[5/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
 <ul>
 <li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and converting it into a format suitable for further processing. It serves as the starting point in the email processing workflow, typically used to extract and prepare email data.  In a production environment, this node would connect to an actual email service (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
 </ul></li>
-<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
+<li>[6/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
 <ul>
 <li><code>detail describe</code>: This node searches the knowledge base for relevant information based on the intent and topic extracted from email classification. It stores the search results for use in response drafting.</li>
 </ul></li>
-<li><p>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.</p>
-
+<li>[7/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.
 <ul>
 <li><code>detail describe</code>: This node is responsible for sending the final email response to the customer. In a production environment, it would integrate with an email service provider or SMTP server to deliver the message.</li>
 </ul></li>
+<li>[8/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/end_node.html#SystemEndNode">SystemEndNode</a>: Node that auto add <END> as next node</li>
+<li>[9/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/start_node.html#SystemStartNode">SystemStartNode</a>: Node that auto add <START> as previous node</li>
+<li><p>[10/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/update_value.html#SystemUpdateValueNode">SystemUpdateValueNode</a>: Node that update {key:value} into state</p></li>
 <li><p><a href="graph/node_describe.html">node_describe</a>: define structure to desribe I/O of Node</p></li>
 <li><a href="graph/node_type.html">node_type</a>: define types define for node</li>
 </ul>

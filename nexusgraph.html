@@ -36,6 +36,11 @@
     <li><a href="#help">help</a></li>
     <li><a href="#example">example</a></li>
   </ul></li>
+  <li><a href="#yamljson-define-graph">YAML/JSON define graph</a>
+  <ul>
+    <li><a href="#1-full-template">1. full template</a></li>
+    <li><a href="#2-auto-generate">2 auto generate</a></li>
+  </ul></li>
   <li><a href="#support-states">Support States</a></li>
   <li><a href="#support-nodes">Support Nodes</a></li>
   <li><a href="#support-workflows">Support WorkFlows</a></li>
@@ -56,7 +61,7 @@
             </ul>
 
 
-            <footer>Commit Version: c4249f0a2f9cc50889363a17443e0bafdba71179</footer>
+            <footer>Commit Version: 21d8f23342b4f85cafb3f5238ebc12a4ab3a54e1</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -242,6 +247,106 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
 </code></pre>
 </div>
 
+<h1 id="yamljson-define-graph">YAML/JSON define graph</h1>
+
+<blockquote>
+  <p>You can also read "<a href="nexusgraph/dataclass/workflow.html">nexusgraph.dataclass.workflow</a>" to directly understand the YAML rules.</p>
+</blockquote>
+
+<h2 id="1-full-template">1. full template</h2>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="c1"># head of config</span>
+<span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1.0</span><span class="w">               </span><span class="c1"># [optional] yaml version for future, no used at this time</span>
+<span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">                </span><span class="c1"># [optional] True will print debug info, such as graph node detail</span>
+<span class="nt">key_lost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">remain</span><span class="w">            </span><span class="c1"># [optional] &quot;exception&quot;, &quot;warning&quot;, &quot;remain&quot;(default), </span>
+<span class="w">                            </span><span class="c1"># if key lost in alias dict, remain and warning will use key=f&quot;{key}</span>
+
+<span class="c1"># states config</span>
+<span class="nt">states</span><span class="p">:</span><span class="w">                     </span><span class="c1"># list like state, use only one at this time         </span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;state_id&gt;</span><span class="w">          </span><span class="c1"># any sole string as you like</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;StateBase&gt;</span><span class="w">         </span><span class="c1"># StateBase type that can be view be cli-tools</span>
+<span class="w">  </span><span class="nt">inits</span><span class="p">:</span><span class="w">                    </span><span class="c1"># [optional] you can give init value for your states  {} is ok</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w">                   </span><span class="c1"># [optional] you can give value from YAML/JSON file</span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span><span class="w">                 </span><span class="c1"># [optional] you can give value from YAML/JSON file, will merge with file and have a higher priority</span>
+
+<span class="c1"># nodes config</span>
+<span class="nt">nodes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;node_id&gt;</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;NodeBase&gt;</span>
+<span class="w">  </span><span class="nt">retry_policy</span><span class="p">:</span><span class="w">             </span><span class="c1"># [optional] add retry_policy to curent node</span>
+<span class="w">    </span><span class="nt">max_attempts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span><span class="w">         </span><span class="c1"># [optional] args for retry_policy</span>
+<span class="w">  </span><span class="c1"># define key alias</span>
+<span class="w">  </span><span class="nt">key_alias</span><span class="p">:</span><span class="w">                </span><span class="c1"># refer runtime binding from node [INPUT,OUPUT] params to key in state. </span>
+<span class="w">                            </span><span class="c1"># param_names can be queried by cli-tools or website doc</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w">                   </span><span class="c1"># [optional] you can give value from YAML/JSON file</span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">&lt;param_name&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;alias&gt;</span><span class="w"> </span><span class="c1"># [optional] you can give value from YAML/JSON file, will merge with file and have a higher priority</span>
+<span class="w">                            </span><span class="c1"># if `param_name: null` is give, Node will get `value=default`, default is Node param default value</span>
+
+<span class="w">                            </span><span class="c1"># support param_name: &quot;key1.key2.key3&quot;:</span>
+<span class="w">                            </span><span class="c1"># [INPUT] Node will get `$param_name=state[&quot;key1&quot;][&quot;key2&quot;][&quot;key3&quot;], value=None means not exist</span>
+<span class="w">                            </span><span class="c1">#         if `param_name: null` is give, Node will get `value=default`, default is Node param default value</span>
+<span class="w">                            </span><span class="c1"># [OUTPUT] Node will update value to `$param_name=&quot;key1.key2.key3&quot;`</span>
+<span class="w">                            </span><span class="c1"># [RUNTIME] Node will get `$param_name=runtime_dict[&quot;state_key&quot;]`, `runtime_dict` is init by kwargs give for  </span>
+<span class="w">                            </span><span class="c1">#           init node, or give by runtimes: {} below</span>
+
+<span class="w">  </span><span class="c1"># give runtime value by config</span>
+<span class="w">  </span><span class="nt">runtimes</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">file</span><span class="p">:</span><span class="w">                   </span><span class="c1"># [optional] you can give value from YAML/JSON file, will merge with values</span>
+<span class="w">    </span><span class="nt">values</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">&lt;key&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;value&gt;</span><span class="w">        </span><span class="c1"># null means use param default. or give as real param for node (get `$key=value`)</span>
+
+<span class="w">  </span><span class="c1"># set edges</span>
+<span class="w">  </span><span class="nt">edges</span><span class="p">:</span><span class="w">                    </span><span class="c1"># you can use &lt;START&gt; and &lt;END&gt; as special node name</span>
+<span class="w">                            </span><span class="c1"># param_names can be queried by cli-tools or website doc</span>
+<span class="w">    </span><span class="nt">start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w">            </span><span class="c1"># [optional] true will add &lt;START&gt; as previous node</span>
+<span class="w">    </span><span class="nt">nexts</span><span class="p">:</span><span class="w">                  </span><span class="c1"># [optional] null means no addition next. support list[str] or str. node will always run after all </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;node_name1&gt;</span><span class="w">        </span><span class="c1"># previous nodes done. Even without data transmission, edges can still be constructed. </span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;node_name2&gt;</span><span class="w">        </span><span class="c1"># if no outbounds, you need add at least one as next node     </span>
+
+<span class="w">    </span><span class="nt">outbounds</span><span class="p">:</span><span class="w">              </span><span class="c1"># if nodes require [NODE_KEY], you must set here, then node select condition next</span>
+<span class="w">      </span><span class="nt">file</span><span class="p">:</span><span class="w">                 </span><span class="c1"># [optional] you can give value from YAML/JSON file, will merge with values</span>
+<span class="w">      </span><span class="nt">values</span><span class="p">:</span><span class="w">               </span><span class="c1"># [optional] only give if node require</span>
+<span class="w">        </span><span class="nt">&lt;bug_next&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;node_name3&gt;</span><span class="w">  </span>
+<span class="w">        </span><span class="nt">&lt;fail_next&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;node_name4&gt;</span>
+<span class="w">        </span><span class="nt">&lt;success_next&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;node_name5&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="2-auto-generate">2 auto generate</h2>
+
+<p>you can generate most of template by follow way:</p>
+
+<h3 id="21-prepare-simple-yaml-like-follow">2.1 prepare simple yaml like follow</h3>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="nt">states</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">example_name</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ExampleStateType</span>
+
+<span class="nt">nodes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node1</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ExampleNodeType1</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">node2</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ExampleNodeType2</span>
+<span class="c1"># ...</span>
+</code></pre>
+</div>
+
+<h3 id="22-auto-complete-keys-with-tools">2.2 auto complete keys with tools</h3>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn"><a href="nexusgraph/dataclass.html">nexusgraph.dataclass</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">WorkFlowData</span>
+<span class="n">config</span><span class="o">=</span><span class="n">WorkFlowData</span><span class="o">.</span><span class="n">from_path</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/path/to/xxx.yaml&quot;</span><span class="p">)</span>
+<span class="n">config</span><span class="o">.</span><span class="n">save_path</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;/path/to/xxx.full.yaml&quot;</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<h3 id="23-complete-key-values">2.3 complete key values</h3>
+
+<p>you can edit <code>/path/to/xxx.full.yaml</code> to get finally <code>YAML</code></p>
+
 <h1 id="support-states">Support States</h1>
 
 <blockquote>
@@ -260,34 +365,37 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
 </blockquote>
 
 <ul>
-<li>[1/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
+<li>[1/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
 <ul>
 <li><code>detail describe</code>: This node interfaces with the bug tracking system to create new tickets or update existing ones based on email content classified as bug reports.</li>
 </ul></li>
-<li>[2/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
+<li>[2/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
 <ul>
 <li><code>detail describe</code>: This node generates email responses using context from search results, customer history, and the original email content. It determines whether human review is needed based on urgency and intent.</li>
 </ul></li>
-<li>[3/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
+<li>[3/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
 <ul>
 <li><code>detail describe</code>: This node uses a language model to analyze email content and classify it according to intent, urgency, topic, and provides a summary. Based on the classification, it routes the email to the appropriate next node in the workflow.</li>
 </ul></li>
-<li>[4/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
+<li>[4/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
 <ul>
 <li><code>detail describe</code>: This node interrupts the workflow to present a generated email response to a human reviewer for approval or editing. Based on the reviewer's decision, it either proceeds to send the response or ends the workflow.</li>
 </ul></li>
-<li>[5/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
+<li>[5/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
 <ul>
 <li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and converting it into a format suitable for further processing. It serves as the starting point in the email processing workflow, typically used to extract and prepare email data.  In a production environment, this node would connect to an actual email service (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
 </ul></li>
-<li>[6/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
+<li>[6/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
 <ul>
 <li><code>detail describe</code>: This node searches the knowledge base for relevant information based on the intent and topic extracted from email classification. It stores the search results for use in response drafting.</li>
 </ul></li>
-<li>[7/7] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.
+<li>[7/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.
 <ul>
 <li><code>detail describe</code>: This node is responsible for sending the final email response to the customer. In a production environment, it would integrate with an email service provider or SMTP server to deliver the message.</li>
 </ul></li>
+<li>[8/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/end_node.html#SystemEndNode">SystemEndNode</a>: Node that auto add <END> as next node</li>
+<li>[9/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/start_node.html#SystemStartNode">SystemStartNode</a>: Node that auto add <START> as previous node</li>
+<li>[10/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/update_value.html#SystemUpdateValueNode">SystemUpdateValueNode</a>: Node that update {key:value} into state</li>
 </ul>
 
 <h1 id="support-workflows">Support WorkFlows</h1>

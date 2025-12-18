@@ -31,6 +31,18 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
+                    <a class="class" href="#NodeType">NodeType</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#NodeType.COMMON">COMMON</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#NodeType.SYSTEM">SYSTEM</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#NodeBase">NodeBase</a>
                             <ul class="memberlist">
                         <li>
@@ -84,6 +96,9 @@
                         <li>
                                 <a class="function" href="#NodeBase.get">get</a>
                         </li>
+                        <li>
+                                <a class="function" href="#NodeBase.node_type">node_type</a>
+                        </li>
                 </ul>
 
             </li>
@@ -99,7 +114,7 @@
     </ul>
 
 
-            <footer>Commit Version: c4249f0a2f9cc50889363a17443e0bafdba71179</footer>
+            <footer>Commit Version: 21d8f23342b4f85cafb3f5238ebc12a4ab3a54e1</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -118,6 +133,45 @@
                 
                 
             </section>
+                <section id="NodeType">
+                    <div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">NodeType</span><wbr>(<span class="base">enum.Enum</span>):
+
+        
+    </div>
+    <a class="headerlink" href="#NodeType"></a>
+    
+            <div class="docstring"><p>Enum type to give node a kine flag</p>
+</div>
+
+
+                            <div id="NodeType.COMMON" class="classattr">
+                                <div class="attr variable">
+            <span class="name">COMMON</span>        =
+<span class="default_value">&lt;<a href="#NodeType.COMMON">NodeType.COMMON</a>: 1&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeType.COMMON"></a>
+    
+    
+
+                            </div>
+                            <div id="NodeType.SYSTEM" class="classattr">
+                                <div class="attr variable">
+            <span class="name">SYSTEM</span>        =
+<span class="default_value">&lt;<a href="#NodeType.SYSTEM">NodeType.SYSTEM</a>: 2&gt;</span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeType.SYSTEM"></a>
+    
+    
+
+                            </div>
+                </section>
                 <section id="NodeBase">
                     <div class="attr class">
             
@@ -591,6 +645,20 @@ so the derived class does not need to consider how the runtime actual value is a
 </blockquote>
 </div>
 
+
+                            </div>
+                            <div id="NodeBase.node_type" class="classattr">
+                                <div class="attr function">
+                    <div class="decorator decorator-classmethod">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">node_type</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span></span><span class="return-annotation">) -> <span class="n"><a href="#NodeType">NodeType</a></span>:</span></span>
+
+        
+    </div>
+    <a class="headerlink" href="#NodeBase.node_type"></a>
+    
+    
 
                             </div>
                 </section>
