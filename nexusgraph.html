@@ -61,7 +61,7 @@
             </ul>
 
 
-            <footer>Commit Version: 21d8f23342b4f85cafb3f5238ebc12a4ab3a54e1</footer>
+            <footer>Commit Version: 9914075c2c316ee589085a759313ef875829e728</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -288,6 +288,8 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
 <span class="w">                            </span><span class="c1"># [INPUT] Node will get `$param_name=state[&quot;key1&quot;][&quot;key2&quot;][&quot;key3&quot;], value=None means not exist</span>
 <span class="w">                            </span><span class="c1">#         if `param_name: null` is give, Node will get `value=default`, default is Node param default value</span>
 <span class="w">                            </span><span class="c1"># [OUTPUT] Node will update value to `$param_name=&quot;key1.key2.key3&quot;`</span>
+<span class="w">                            </span><span class="c1"># [TMP_OUTPUT] Node will update value to `$param_name=&quot;key1.key2.key3&quot;`, usually </span>
+<span class="w">                            </span><span class="c1">#               this key can be random, it make no binding with state and runtime, used for Send in Parallel</span>
 <span class="w">                            </span><span class="c1"># [RUNTIME] Node will get `$param_name=runtime_dict[&quot;state_key&quot;]`, `runtime_dict` is init by kwargs give for  </span>
 <span class="w">                            </span><span class="c1">#           init node, or give by runtimes: {} below</span>
 
@@ -354,8 +356,9 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
 </blockquote>
 
 <ul>
-<li>[1/2] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
-<li>[2/2] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
+<li>[1/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailAgentState">EmailAgentState</a></li>
+<li>[2/3] <a href="https://nexusgraph.github.io/nexusgraph/states/emails/email_agent.html#EmailClassification">EmailClassification</a></li>
+<li>[3/3] <a href="https://nexusgraph.github.io/nexusgraph/states/parallel/parallel_demo_state.html#ParallelDemoState">ParallelDemoState</a></li>
 </ul>
 
 <h1 id="support-nodes">Support Nodes</h1>
@@ -365,37 +368,41 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
 </blockquote>
 
 <ul>
-<li>[1/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
+<li>[1/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/bug_tracking.html#BugTrackingNode">BugTrackingNode</a>: Node for managing bug tracking tickets.
 <ul>
 <li><code>detail describe</code>: This node interfaces with the bug tracking system to create new tickets or update existing ones based on email content classified as bug reports.</li>
 </ul></li>
-<li>[2/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
+<li>[2/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/draft_response.html#DraftResponseNode">DraftResponseNode</a>: Node for drafting email responses.
 <ul>
 <li><code>detail describe</code>: This node generates email responses using context from search results, customer history, and the original email content. It determines whether human review is needed based on urgency and intent.</li>
 </ul></li>
-<li>[3/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
+<li>[3/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/email_classify.html#EmailClassifyNode">EmailClassifyNode</a>: Node for classifying emails based on content and intent.
 <ul>
 <li><code>detail describe</code>: This node uses a language model to analyze email content and classify it according to intent, urgency, topic, and provides a summary. Based on the classification, it routes the email to the appropriate next node in the workflow.</li>
 </ul></li>
-<li>[4/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
+<li>[4/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/sends/parallel_demo.html#HumanInputNode">HumanInputNode</a>: Get human input numbers</li>
+<li>[5/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/human_review.html#HumanReviewNode">HumanReviewNode</a>: Human review node for email agent workflow.
 <ul>
 <li><code>detail describe</code>: This node interrupts the workflow to present a generated email response to a human reviewer for approval or editing. Based on the reviewer's decision, it either proceeds to send the response or ends the workflow.</li>
 </ul></li>
-<li>[5/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
+<li>[6/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/sends/parallel_demo.html#ParallelTranslateNode">ParallelTranslateNode</a>: Parallel call SignalTranslateNode</li>
+<li>[7/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/read_email.html#ReadEmailNode">ReadEmailNode</a>: Email Reading Node
 <ul>
 <li><code>detail describe</code>: This node is responsible for reading email content from the workflow state and converting it into a format suitable for further processing. It serves as the starting point in the email processing workflow, typically used to extract and prepare email data.  In a production environment, this node would connect to an actual email service (such as SMTP, IMAP, or email APIs) to fetch email content.</li>
 </ul></li>
-<li>[6/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
+<li>[8/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/search_documentation.html#SearchDocumentationNode">SearchDocumentationNode</a>: Node for searching documentation based on email classification.
 <ul>
 <li><code>detail describe</code>: This node searches the knowledge base for relevant information based on the intent and topic extracted from email classification. It stores the search results for use in response drafting.</li>
 </ul></li>
-<li>[7/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.
+<li>[9/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/emails/send_reply.html#SendReplyNode">SendReplyNode</a>: Node for sending email replies.
 <ul>
 <li><code>detail describe</code>: This node is responsible for sending the final email response to the customer. In a production environment, it would integrate with an email service provider or SMTP server to deliver the message.</li>
 </ul></li>
-<li>[8/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/end_node.html#SystemEndNode">SystemEndNode</a>: Node that auto add <END> as next node</li>
-<li>[9/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/start_node.html#SystemStartNode">SystemStartNode</a>: Node that auto add <START> as previous node</li>
-<li>[10/10] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/update_value.html#SystemUpdateValueNode">SystemUpdateValueNode</a>: Node that update {key:value} into state</li>
+<li>[10/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/sends/parallel_demo.html#SignalTranslateNode">SignalTranslateNode</a>: Translate numbers to english, only support 0~9</li>
+<li>[11/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/end_node.html#SystemEndNode">SystemEndNode</a>: Node that auto add <END> as next node</li>
+<li>[12/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/start_node.html#SystemStartNode">SystemStartNode</a>: Node that auto add <START> as previous node</li>
+<li>[13/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/system/update_value.html#SystemUpdateValueNode">SystemUpdateValueNode</a>: Node that update {key:value} into state</li>
+<li>[14/14] <a href="https://nexusgraph.github.io/nexusgraph/nodes/sends/parallel_demo.html#ViewNode">ViewNode</a>: Print result of translate demo</li>
 </ul>
 
 <h1 id="support-workflows">Support WorkFlows</h1>
