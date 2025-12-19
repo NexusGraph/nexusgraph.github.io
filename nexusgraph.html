@@ -61,7 +61,7 @@
             </ul>
 
 
-            <footer>Commit Version: 9914075c2c316ee589085a759313ef875829e728</footer>
+            <footer>Commit Version: ef4564c4a24e2c2a1b2938c6cd36323c7d735ce6</footer>
 
         <a class="attribution" title="pdoc: Python API documentation generator" href="https://pdoc.dev" target="_blank">
             built with <span class="visually-hidden">pdoc</span><img
@@ -155,16 +155,19 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
 <span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">Command</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.checkpoint.memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">MemorySaver</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn"><a href="nexusgraph/utils/dummy_chat_openai.html">nexusgraph.utils.dummy_chat_openai</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">DummyChatOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn"><a href="nexusgraph/states/emails/email_agent.html">nexusgraph.states.emails.email_agent</a></span><span class="w"> </span><span class="kn">import</span> <span class="n">EmailClassification</span>
 
-<span class="n">workflow</span> <span class="o">=</span> <span class="n">WorkFlowBase</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span><span class="s2">&quot;example/email_agent.yaml&quot;</span><span class="p">,</span><span class="n">llm</span><span class="o">=</span><span class="n">DummyChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">))</span>
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">WorkFlowBase</span><span class="o">.</span><span class="n">from_config</span><span class="p">(</span>
+    <span class="s2">&quot;example/email_reply.yaml&quot;</span><span class="p">,</span>
+    <span class="n">llm</span><span class="o">=</span><span class="n">DummyChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4&quot;</span><span class="p">),</span>
+    <span class="n">llm_struct</span><span class="o">=</span><span class="n">EmailClassification</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">workflow</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">checkpointer</span><span class="o">=</span><span class="n">MemorySaver</span><span class="p">())</span>
 <span class="n">app</span><span class="o">.</span><span class="n">visualize_graph</span><span class="p">()</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>       
-<span class="c1"># you can print(result) here to see `draft_response` output and wait for human_review</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span>
 
-<span class="c1"># show human review usage below</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="k">if</span> <span class="s2">&quot;__interrupt__&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;__interrupt__&quot;</span><span class="p">])):</span>
@@ -172,21 +175,32 @@ python<span class="w"> </span>tools/nexus_graph_cli.py<span class="w">          
         <span class="nb">print</span><span class="p">()</span>
 
         <span class="n">approved</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;approved draft_response or not [y/N]:&quot;</span><span class="p">)</span>
+
+        <span class="n">interrupt_info</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;__interrupt__&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
         <span class="k">if</span> <span class="s2">&quot;y&quot;</span> <span class="ow">in</span> <span class="n">approved</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
             <span class="n">human_decision_data</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s2">&quot;edited_response&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draft_response&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">+</span> <span class="s2">&quot;and response has been reviewed and approved.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s2">&quot;edited_response&quot;</span><span class="p">:</span> <span class="p">(</span>
+                        <span class="n">interrupt_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draft_response&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+                    <span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot;and response has been reviewed and approved.&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
             <span class="p">}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">human_decision_data</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s2">&quot;edited_response&quot;</span><span class="p">:</span> <span class="s2">&quot;agent give &#39;&quot;</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draft_response&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39; and be refused by human.&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;inputs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;human_approved&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s2">&quot;edited_response&quot;</span><span class="p">:</span> <span class="s2">&quot;agent give &#39;&quot;</span>
+                    <span class="o">+</span> <span class="n">interrupt_info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;draft_response&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="o">+</span> <span class="s2">&quot;&#39; and be refused by human.&quot;</span><span class="p">,</span>
+                <span class="p">}</span>
             <span class="p">}</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">Command</span><span class="p">(</span><span class="n">resume</span><span class="o">=</span><span class="n">human_decision_data</span><span class="p">))</span>
         <span class="k">continue</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">break</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exit.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;exit.&quot;</span><span class="p">)</span>
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">example output:</span>
 <span class="sd">--- Graph ASCII Representation ---</span>
